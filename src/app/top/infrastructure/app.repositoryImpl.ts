@@ -35,7 +35,6 @@ export class AppRepositoryImpl implements AppRepository {
         url: data.url,
         page_views_count: data.page_views_count,
       };
-      console.dir(result);
       return result;
     });
   }
