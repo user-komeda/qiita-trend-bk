@@ -1,7 +1,7 @@
 import { Controller, Get, Param } from '@nestjs/common';
 import { DetailService } from '../domain/detail.service';
 
-@Controller('detail')
+@Controller('details')
 export class DetailController {
   constructor(private readonly detailService: DetailService) {}
   @Get(':id')
