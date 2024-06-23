@@ -18,7 +18,7 @@ export class AppRepositoryImpl implements AppRepository {
   }
 
   private buildUrl(): string {
-    return 'https://qiita.com/api/v2/items?query=created%3A%3E%3D2020-01+created%3A%3C%3D2020-10';
+    return 'https://qiita.com/api/v2/items?per_page=100&query=created%3A%3E%3D2020-01-01+created%3A%3C%3D2020-01-01';
   }
 
   private convertResponseData(dataList: any): Array<ItemsData> {

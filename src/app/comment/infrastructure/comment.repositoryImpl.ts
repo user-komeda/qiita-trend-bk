@@ -17,7 +17,7 @@ export class CommentRepositoryImpl implements CommentRepository {
   }
 
   private buildUrl(id: string): string {
-    return `https://qiita.com/api/v2/items/${id}/comments`;
+    return `https://qiita.com/api/v2/items/${id}/comments?per_page=100`;
   }
 
   private convertData(dataList): Array<string> {
