@@ -2,8 +2,9 @@ import { Module } from '@nestjs/common';
 import { TopModule } from './top/top.module';
 import { DetailModule } from './detail/detail.module';
 import { CommentModule } from './comment/comment.module';
+import { TagModule } from './tag/tag.module';
 
 @Module({
-  imports: [TopModule, DetailModule, CommentModule],
+  imports: [TopModule, DetailModule, CommentModule, TagModule],
 })
 export class AppModule {}
