@@ -35,7 +35,6 @@ export class ItemsRepositoryImpl implements ItemsRepository {
         url: data.url,
         page_views_count: data.page_views_count,
       };
-      console.dir(result.stocks_count);
       return result;
     });
   }

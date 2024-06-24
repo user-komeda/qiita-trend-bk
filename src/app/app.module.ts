@@ -3,7 +3,6 @@ import { RouterModule, Routes } from '@nestjs/core';
 import { PublicModule } from './public/public.module';
 import { AdminModule } from './admin/admin.module';
 import { ItemsModule } from './public/items/items.module';
-import path from 'path';
 import { CommentModule } from './public/comment/comment.module';
 import { TagModule } from './public/tag/tag.module';
 const routes: Routes = [
