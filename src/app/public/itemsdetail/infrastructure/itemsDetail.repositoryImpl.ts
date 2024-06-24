@@ -1,11 +1,11 @@
 import { Injectable } from '@nestjs/common';
-import { DetailRepository } from '../domain/detail.repository';
+import { ItemsDetailRepository } from '../domain/itemsDetail.repository';
 import { ItemsData } from 'src/typs/itemsData';
 import { HttpService } from '@nestjs/axios';
 import { lastValueFrom, map } from 'rxjs';
 
 @Injectable()
-export class DetailRepositoryImpl implements DetailRepository {
+export class ItemsDetailRepositoryImpl implements ItemsDetailRepository {
   constructor(private readonly httpService: HttpService) {}
   async getDetailItems(id: string): Promise<ItemsData> {
     return await lastValueFrom(

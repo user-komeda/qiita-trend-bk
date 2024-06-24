@@ -1,11 +1,11 @@
 import { Injectable } from '@nestjs/common';
-import { AppRepository } from '../domain/app.repository';
+import { ItemsRepository } from '../domain/items.repository';
 import { HttpService } from '@nestjs/axios';
 import { lastValueFrom, map } from 'rxjs';
 import { ItemsData } from 'src/typs/itemsData';
 
 @Injectable()
-export class AppRepositoryImpl implements AppRepository {
+export class ItemsRepositoryImpl implements ItemsRepository {
   constructor(private readonly httpService: HttpService) {}
   async getItems(): Promise<ItemsData[]> {
     return await lastValueFrom(
@@ -18,7 +18,7 @@ export class AppRepositoryImpl implements AppRepository {
   }
 
   private buildUrl(): string {
-    return 'https://qiita.com/api/v2/items?per_page=100&query=created%3A%3E%3D2020-01-01+created%3A%3C%3D2020-01-01';
+    return 'https://qiita.com/api/v2/items?sort=stock&per_page=100&query=created%3A%3E%3D2020-01-01+created%3A%3C%3D2020-01-31';
   }
 
   private convertResponseData(dataList: any): Array<ItemsData> {
