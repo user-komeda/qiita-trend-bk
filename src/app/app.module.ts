@@ -5,6 +5,7 @@ import { AdminModule } from './admin/admin.module';
 import { ItemsModule } from './public/items/items.module';
 import { CommentModule } from './public/comment/comment.module';
 import { TagModule } from './public/tag/tag.module';
+import { TagsItemModule } from './public/tags-item/tagsItens.module';
 const routes: Routes = [
   {
     path: '/admin',
@@ -27,6 +28,12 @@ const routes: Routes = [
       {
         path: 'tags',
         module: TagModule,
+        children: [
+          {
+            path: ':tagId/items',
+            module: TagsItemModule,
+          },
+        ],
       },
     ],
   },
