@@ -5,7 +5,7 @@ import { ItemsData } from 'src/types/itemsData'
 import { TagsItemService } from '../domain/tagsItem.service'
 
 /**
- *TagsItemController
+ *TagsItemController.
  */
 @Controller('')
 export class TagsItemController {
