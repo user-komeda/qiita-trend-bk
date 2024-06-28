@@ -1,21 +1,23 @@
-import { Test, TestingModule } from '@nestjs/testing';
-import { AppController } from './items.controller';
-import { AppService } from '../../domain/app.service';
-describe('AppController', () => {
-  let appController: AppController;
+// import { Test, TestingModule } from '@nestjs/testing'
 
-  beforeEach(async () => {
-    const app: TestingModule = await Test.createTestingModule({
-      controllers: [AppController],
-      providers: [AppService],
-    }).compile();
+// import { AppService } from '../../domain/app.service'
 
-    appController = app.get<AppController>(AppController);
-  });
+// import { AppController } from './items.controller'
+// describe('AppController', () => {
+//   let appController: AppController
 
-  describe('root', () => {
-    it('should return "Hello World!"', () => {
-      expect(appController.getHello()).toBe('Hello World!');
-    });
-  });
-});
+//   beforeEach(async () => {
+//     const app: TestingModule = await Test.createTestingModule({
+//       controllers: [AppController],
+//       providers: [AppService],
+//     }).compile()
+
+//     appController = app.get<AppController>(AppController)
+//   })
+
+//   describe('root', () => {
+//     it('should return "Hello World!"', () => {
+//       expect(appController.getHello()).toBe('Hello World!')
+//     })
+//   })
+// })

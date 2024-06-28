@@ -1,6 +1,14 @@
-import { ItemsData } from 'src/typs/itemsData';
+import { ItemsData } from 'src/types/itemsData'
 
+/**
+ *ItemsDetailRepository
+ */
 export interface ItemsDetailRepository {
-  getDetailItems(id: string): Promise<ItemsData>;
+  /**
+   *特定の記事を取得
+   */
+  getDetailItems(id: string): Promise<ItemsData>
 }
-export const ItemsDetailRepository = Symbol('ItemsDetailRepository');
+/** ItemsDetailRepository */
+// eslint-disable-next-line @typescript-eslint/naming-convention
+export const ItemsDetailRepository = Symbol('ItemsDetailRepository')

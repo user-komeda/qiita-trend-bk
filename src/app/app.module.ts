@@ -1,11 +1,12 @@
-import { Module } from '@nestjs/common';
-import { RouterModule, Routes } from '@nestjs/core';
-import { PublicModule } from './public/public.module';
-import { AdminModule } from './admin/admin.module';
-import { ItemsModule } from './public/items/items.module';
-import { CommentModule } from './public/comment/comment.module';
-import { TagModule } from './public/tag/tag.module';
-import { TagsItemModule } from './public/tags-item/tagsItens.module';
+import { Module } from '@nestjs/common'
+import { RouterModule, Routes } from '@nestjs/core'
+
+import { AdminModule } from './admin/admin.module'
+import { CommentModule } from './public/comment/comment.module'
+import { ItemsModule } from './public/items/items.module'
+import { PublicModule } from './public/public.module'
+import { TagModule } from './public/tag/tag.module'
+import { TagsItemModule } from './public/tags-item/tagsItens.module'
 const routes: Routes = [
   {
     path: '/admin',
@@ -37,8 +38,11 @@ const routes: Routes = [
       },
     ],
   },
-];
+]
 
+/**
+ *AppModule
+ */
 @Module({
   imports: [PublicModule, AdminModule, RouterModule.register(routes)],
 })
