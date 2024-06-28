@@ -3,6 +3,11 @@ on:
     paths:
       - .github/actionlint.yml
       - .github/actionlint-matcher.json
+  pull_request:
+    paths:
+      - .github/actionlint.yml
+      - .github/actionlint-matcher.json
+    types: [ opened, synchronize ]
 
 name: actionlint
 jobs:
