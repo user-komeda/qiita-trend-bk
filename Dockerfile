@@ -6,7 +6,7 @@ RUN microdnf -y install tar make gcc xz python3  g++
 RUN curl -fsSLO --compressed "https://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION.tar.xz"
 RUN  ls
 RUN tar -xf "node-v$NODE_VERSION.tar.xz"
-RUN cd "node-v$NODE_VERSION" && ./configure && make && make install
+RUN cd "node-v$NODE_VERSION" && ./configure && make -j$(getconf _NPROCESSORS_ONLN) && make install
 COPY package.json ./
 RUN npm install 
 COPY ./ ./
