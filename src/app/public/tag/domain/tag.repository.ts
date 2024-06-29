@@ -1,6 +1,14 @@
-import { TagData } from 'src/typs/tagData';
+import { TagData } from 'src/types/tagData'
 
+/**
+ *TagRepository
+ */
 export interface TagRepository {
-  getTags(): Promise<TagData[]>;
+  /**
+   *すべてのタグを取得
+   */
+  getTags(): Promise<TagData[]>
 }
-export const TagRepository = Symbol('TagRepository');
+/** TagRepository */
+// eslint-disable-next-line @typescript-eslint/naming-convention
+export const TagRepository = Symbol('TagRepository')

@@ -1,4 +1,12 @@
+/**
+ *CommentRepository
+ */
 export interface CommentRepository {
-  getItemComment(id: string): Promise<string[]>;
+  /**
+   *記事についているコメントすべて取得
+   */
+  getItemComment(id: string): Promise<string[]>
 }
-export const CommentRepository = Symbol('CommentRepository');
+/** CommentRepositorySymbol */
+// eslint-disable-next-line @typescript-eslint/naming-convention
+export const CommentRepository = Symbol('CommentRepository')
