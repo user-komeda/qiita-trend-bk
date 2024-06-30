@@ -18,3 +18,5 @@ jobs:
         run: yarn lint
       - name: Run format
         run: yarn format
+      - name: Run eslint
+        run: yarn test:cov
