@@ -3,28 +3,26 @@ import { Test, TestingModule } from '@nestjs/testing'
 
 import { TagData } from 'src/types/tagData'
 
-import { TagRepository } from '../domain/tag.repository'
-import { TagService } from '../domain/tag.service'
 import { TagRepositoryImpl } from '../infrastructure/tag.repositoryImpl'
 
-import { TagController } from './tag.controller'
+import { TagRepository } from './tag.repository'
+import { TagService } from './tag.service'
 
-describe('TagController', () => {
-  let controller: TagController
+describe('TagService', () => {
   let service: TagService
+  let repository: TagRepository
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       imports: [HttpModule],
-      controllers: [TagController],
       providers: [
         TagService,
         { provide: TagRepository, useClass: TagRepositoryImpl },
       ],
     }).compile()
 
-    controller = module.get<TagController>(TagController)
     service = module.get<TagService>(TagService)
+    repository = module.get<TagRepository>(TagRepository)
   })
 
   it('should be defined', async () => {
@@ -45,11 +43,11 @@ describe('TagController', () => {
           'https://s3-ap-northeast-1.amazonaws.com/qiita-tag-image/e92cc40a9770111ffa5833b87b3fb7e04a0a2b5e/medium.jpg?1650353581',
       },
     ]
-    jest.spyOn(service, 'getTags').mockImplementationOnce(() => {
+    jest.spyOn(repository, 'getTags').mockImplementationOnce(() => {
       return Promise.resolve(mockData)
     })
-    const result = await controller.getTags()
+    const result = await service.getTags()
     expect(result).toEqual(mockData)
-    expect(service.getTags).toHaveBeenCalled()
+    expect(repository.getTags).toHaveBeenCalled()
   })
 })

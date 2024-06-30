@@ -1,0 +1,4 @@
+/test
+/src/app/**/**.spec.ts
+/src/app/**/**.module.spec.ts
+/jest.config.ts
