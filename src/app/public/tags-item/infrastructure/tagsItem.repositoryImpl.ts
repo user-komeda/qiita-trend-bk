@@ -33,6 +33,9 @@ export class TagsItemRepositoryImpl implements TagsItemRepository {
 
   private convertResponseData(dataList): ItemsData[] {
     return dataList.map((data) => {
+      const tag = data.tags.map((tag) => {
+        return tag.name
+      })
       /**
        *result
        */
@@ -43,7 +46,7 @@ export class TagsItemRepositoryImpl implements TagsItemRepository {
         private: data.private,
         reactionsCount: data.reactions_count,
         stocksCount: data.stocks_count,
-        tags: data.tags,
+        tags: tag,
         title: data.title,
         url: data.url,
         pageViewsCount: data.page_views_count,

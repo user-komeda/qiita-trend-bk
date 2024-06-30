@@ -70,6 +70,8 @@ module.exports = {
     'plugin:@typescript-eslint/stylistic',
     'plugin:import/recommended',
     'plugin:import/typescript',
+    'plugin:jest/recommended',
+    'plugin:jest/style',
   ],
   root: true,
   env: {
