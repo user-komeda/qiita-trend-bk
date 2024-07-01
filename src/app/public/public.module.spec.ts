@@ -1,8 +1,8 @@
 import { Test } from '@nestjs/testing'
-import { HttpService } from '@nestjs/axios'
-import { PublicModule } from './public.module'
+
 import { CommentModule } from './comment/comment.module'
 import { ItemsModule } from './items/items.module'
+import { PublicModule } from './public.module'
 import { TagModule } from './tag/tag.module'
 import { TagsItemModule } from './tags-item/tagsItens.module'
 

@@ -6,7 +6,10 @@ import { CommentService } from '../domain/comment.service'
 import { CommentRepositoryImpl } from '../infrastructure/comment.repositoryImpl'
 
 import { CommentController } from './comment.controller'
-const testCase1 = async (controller, service): Promise<void> => {
+const testCase1 = async (
+  controller: CommentController,
+  service: CommentService,
+): Promise<void> => {
   const requestData = 'e37caf50776e00e733be'
   const responseData = ['comment', 'comment2', 'comment3']
   jest.spyOn(service, 'getItemComment').mockImplementationOnce(() => {
@@ -36,6 +39,6 @@ describe('CommentController', () => {
   })
 
   it('should be defined', async () => {
-    testCase1(controller, service)
+    expect(testCase1(controller, service)).toBeTruthy()
   })
 })

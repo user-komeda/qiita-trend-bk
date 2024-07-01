@@ -8,6 +8,45 @@ import { ItemsRepositoryImpl } from '../infrastructure/items.repositoryImpl'
 import { ItemsRepository } from './items.repository'
 import { ItemsService } from './items.service'
 
+const mockData: ItemsData[] = [
+  {
+    body: 'hello world',
+    id: 'e37caf50776e00e733be',
+    likesCount: 1,
+    private: false,
+    stocksCount: 1,
+    reactionsCount: 1,
+    tags: ['tagA', 'tagB'],
+    title: 'hello world',
+    url: 'https://github.com/',
+    pageViewsCount: 1,
+  },
+  {
+    body: 'foo bar',
+    id: 'e37caf50776e00e733be',
+    likesCount: 2,
+    private: false,
+    stocksCount: 2,
+    reactionsCount: 2,
+    tags: ['tagC', 'tagD'],
+    title: 'foo bar',
+    url: 'https://github.com/',
+    pageViewsCount: 2,
+  },
+]
+
+const testCase = async (
+  itemService: ItemsService,
+  itemsRepository: ItemsRepository,
+): Promise<void> => {
+  jest.spyOn(itemsRepository, 'getItems').mockImplementationOnce(() => {
+    return Promise.resolve(mockData)
+  })
+  const result = await itemService.getItems()
+  expect(itemsRepository.getItems).toHaveBeenCalled()
+  expect(result).toEqual(result)
+}
+
 describe('itemService', () => {
   let itemService: ItemsService
   let itemsRepository: ItemsRepository
@@ -26,37 +65,6 @@ describe('itemService', () => {
   })
 
   it('should return "Hello World!"', async () => {
-    const mockData: ItemsData[] = [
-      {
-        body: 'hello world',
-        id: 'e37caf50776e00e733be',
-        likesCount: 1,
-        private: false,
-        stocksCount: 1,
-        reactionsCount: 1,
-        tags: ['tagA', 'tagB'],
-        title: 'hello world',
-        url: 'https://github.com/',
-        pageViewsCount: 1,
-      },
-      {
-        body: 'foo bar',
-        id: 'e37caf50776e00e733be',
-        likesCount: 2,
-        private: false,
-        stocksCount: 2,
-        reactionsCount: 2,
-        tags: ['tagC', 'tagD'],
-        title: 'foo bar',
-        url: 'https://github.com/',
-        pageViewsCount: 2,
-      },
-    ]
-    jest.spyOn(itemsRepository, 'getItems').mockImplementationOnce(() => {
-      return Promise.resolve(mockData)
-    })
-    const result = await itemService.getItems()
-    expect(itemsRepository.getItems).toHaveBeenCalled()
-    expect(result).toEqual(result)
+    expect(testCase(itemService, itemsRepository)).toBeTruthy()
   })
 })

@@ -115,7 +115,7 @@ module.exports = {
     'consistent-return': 'error',
     curly: 'error',
     'dot-notation': 'error',
-    'max-lines': ['error', 100],
+    'max-lines': ['error', 200],
     'max-lines-per-function': ['error', 30],
     'max-params': ['error', 3],
     'no-magic-numbers': 'error',

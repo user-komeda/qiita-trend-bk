@@ -1,10 +1,11 @@
-import { Test } from '@nestjs/testing'
 import { HttpService } from '@nestjs/axios'
-import { ItemsModule } from './items.module'
+import { Test } from '@nestjs/testing'
+
 import { ItemsController } from './application/items.controller'
+import { ItemsRepository } from './domain/items.repository'
 import { ItemsService } from './domain/items.service'
 import { ItemsRepositoryImpl } from './infrastructure/items.repositoryImpl'
-import { ItemsRepository } from './domain/items.repository'
+import { ItemsModule } from './items.module'
 
 describe('itemsModule', () => {
   it('should compile the module', async () => {
