@@ -1,7 +1,8 @@
 import { Test } from '@nestjs/testing'
+
+import { AdminModule } from './admin/admin.module'
 import { AppModule } from './app.module'
 import { PublicModule } from './public/public.module'
-import { AdminModule } from './admin/admin.module'
 
 describe('appModule', () => {
   it('should compile the module', async () => {

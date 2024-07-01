@@ -8,6 +8,34 @@ import { ItemsDetailRepositoryImpl } from '../infrastructure/itemsDetail.reposit
 import { ItemsDetailRepository } from './itemsDetail.repository'
 import { ItemsDetailService } from './itemsDetail.service'
 
+const testCase = async (
+  itemsDetailRepository: ItemsDetailRepository,
+  itemsDetailService: ItemsDetailService,
+): Promise<void> => {
+  const requestData = 'e37caf50776e00e733be'
+  const mockData: ItemsData = {
+    body: 'hello world',
+    id: 'e37caf50776e00e733be',
+    likesCount: 1,
+    private: false,
+    stocksCount: 1,
+    reactionsCount: 1,
+    tags: ['tagA', 'tagB'],
+    title: 'hello world',
+    url: 'https://github.com/',
+    pageViewsCount: 1,
+  }
+
+  jest
+    .spyOn(itemsDetailRepository, 'getDetailItems')
+    .mockImplementationOnce(() => {
+      return Promise.resolve(mockData)
+    })
+  const result = await itemsDetailService.getDetailItems(requestData)
+  expect(itemsDetailRepository.getDetailItems).toHaveBeenCalled()
+  expect(result).toEqual(mockData)
+}
+
 describe('itemDetailService', () => {
   let itemDetailService: ItemsDetailService
   let itemsDetailRepository: ItemsDetailRepository
@@ -28,27 +56,6 @@ describe('itemDetailService', () => {
   })
 
   it('should return "Hello World!"', async () => {
-    const requestData = 'e37caf50776e00e733be'
-    const mockData: ItemsData = {
-      body: 'hello world',
-      id: 'e37caf50776e00e733be',
-      likesCount: 1,
-      private: false,
-      stocksCount: 1,
-      reactionsCount: 1,
-      tags: ['tagA', 'tagB'],
-      title: 'hello world',
-      url: 'https://github.com/',
-      pageViewsCount: 1,
-    }
-
-    jest
-      .spyOn(itemsDetailRepository, 'getDetailItems')
-      .mockImplementationOnce(() => {
-        return Promise.resolve(mockData)
-      })
-    const result = await itemDetailService.getDetailItems(requestData)
-    expect(itemsDetailRepository.getDetailItems).toHaveBeenCalled()
-    expect(result).toEqual(mockData)
+    expect(testCase(itemsDetailRepository, itemDetailService)).toBeTruthy()
   })
 })

@@ -1,9 +1,10 @@
-import { Test } from '@nestjs/testing'
 import { HttpService } from '@nestjs/axios'
-import { CommentModule } from './comment.module'
+import { Test } from '@nestjs/testing'
+
 import { CommentController } from './application/comment.controller'
-import { CommentService } from './domain/comment.service'
+import { CommentModule } from './comment.module'
 import { CommentRepository } from './domain/comment.repository'
+import { CommentService } from './domain/comment.service'
 import { CommentRepositoryImpl } from './infrastructure/comment.repositoryImpl'
 
 describe('commentModule', () => {

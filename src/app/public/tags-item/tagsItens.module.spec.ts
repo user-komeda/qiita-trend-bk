@@ -1,10 +1,11 @@
-import { Test } from '@nestjs/testing'
 import { HttpService } from '@nestjs/axios'
-import { TagsItemModule } from './tagsItens.module'
+import { Test } from '@nestjs/testing'
+
 import { TagsItemController } from './application/tagsItem.controller'
+import { TagsItemRepository } from './domain/tagsItem.repository'
 import { TagsItemService } from './domain/tagsItem.service'
 import { TagsItemRepositoryImpl } from './infrastructure/tagsItem.repositoryImpl'
-import { TagsItemRepository } from './domain/tagsItem.repository'
+import { TagsItemModule } from './tagsItens.module'
 
 describe('tagsItemModule', () => {
   it('should compile the module', async () => {
