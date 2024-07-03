@@ -2,6 +2,7 @@ import { Controller, Get, Param } from '@nestjs/common'
 
 import { ItemsData } from 'src/types/itemsData'
 
+import { ItemsId } from '../../../form/itemsId/itemsId'
 import { ItemsDetailService } from '../../itemsdetail/domain/itemsDetail.service'
 import { ItemsService } from '../domain/items.service'
 
@@ -28,8 +29,8 @@ export class ItemsController {
    *
    * @param id - 記事id
    */
-  @Get(':id')
-  getItem(@Param('id') id: string): Promise<ItemsData> {
-    return this.itemsDetailService.getDetailItems(id)
+  @Get(':itemsId')
+  getItem(@Param('') id: ItemsId): Promise<ItemsData> {
+    return this.itemsDetailService.getDetailItems(id.itemsId)
   }
 }

@@ -1,4 +1,5 @@
 import { HttpModule } from '@nestjs/axios'
+import { ValidationPipe } from '@nestjs/common/pipes/validation.pipe'
 import { Test, TestingModule } from '@nestjs/testing'
 
 import { CommentRepository } from '../domain/comment.repository'
@@ -10,7 +11,7 @@ const testCase1 = async (
   controller: CommentController,
   service: CommentService,
 ): Promise<void> => {
-  const requestData = 'e37caf50776e00e733be'
+  const requestData = { itemsId: 'e37caf50776e00e733be' }
   const responseData = ['comment', 'comment2', 'comment3']
   jest.spyOn(service, 'getItemComment').mockImplementationOnce(() => {
     return Promise.resolve(responseData)
@@ -36,6 +37,10 @@ describe('CommentController', () => {
 
     controller = module.get<CommentController>(CommentController)
     service = module.get<CommentService>(CommentService)
+
+    const app = module.createNestApplication()
+    app.useGlobalPipes(new ValidationPipe({ forbidUnknownValues: true }))
+    await app.init()
   })
 
   it('should be defined', async () => {
