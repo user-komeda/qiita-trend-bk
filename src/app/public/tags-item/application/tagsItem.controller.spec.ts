@@ -40,7 +40,7 @@ const testCase = async (
   controller: TagsItemController,
   service: TagsItemService,
 ): Promise<void> => {
-  const requestData = 'wifi'
+  const requestData = { tagId: 'wifi' }
 
   jest.spyOn(service, 'getItemsFromTag').mockImplementationOnce(() => {
     return Promise.resolve(mockData)

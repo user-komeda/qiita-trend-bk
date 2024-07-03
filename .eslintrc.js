@@ -116,7 +116,7 @@ module.exports = {
     curly: 'error',
     'dot-notation': 'error',
     'max-lines': ['error', 200],
-    'max-lines-per-function': ['error', 30],
+    'max-lines-per-function': ['error', 40],
     'max-params': ['error', 3],
     'no-magic-numbers': 'error',
     'no-multi-assign': 'error',

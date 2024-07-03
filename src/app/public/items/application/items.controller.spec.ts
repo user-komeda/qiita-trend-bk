@@ -1,4 +1,5 @@
 import { HttpModule } from '@nestjs/axios'
+import { ValidationPipe } from '@nestjs/common/pipes/validation.pipe'
 import { Test, TestingModule } from '@nestjs/testing'
 
 import { ItemsData } from 'src/types/itemsData'
@@ -53,7 +54,7 @@ const testCase2 = async (
   itemsController: ItemsController,
   itemDetailService: ItemsDetailService,
 ): Promise<void> => {
-  const requestData = 'e37caf50776e00e733be'
+  const requestData = { itemsId: 'e37caf50776e00e733be' }
 
   jest.spyOn(itemDetailService, 'getDetailItems').mockImplementationOnce(() => {
     return Promise.resolve(mockData[FIRST_MOCK_DATA_INDEX])
@@ -69,7 +70,7 @@ describe('itemController', () => {
   let itemDetailService: ItemsDetailService
 
   beforeEach(async () => {
-    const app: TestingModule = await Test.createTestingModule({
+    const module: TestingModule = await Test.createTestingModule({
       imports: [HttpModule],
       controllers: [ItemsController],
       providers: [
@@ -80,9 +81,12 @@ describe('itemController', () => {
       ],
     }).compile()
 
-    itemsController = app.get<ItemsController>(ItemsController)
-    itemService = app.get<ItemsService>(ItemsService)
-    itemDetailService = app.get<ItemsDetailService>(ItemsDetailService)
+    itemsController = module.get<ItemsController>(ItemsController)
+    itemService = module.get<ItemsService>(ItemsService)
+    itemDetailService = module.get<ItemsDetailService>(ItemsDetailService)
+    const app = module.createNestApplication()
+    app.useGlobalPipes(new ValidationPipe({ forbidUnknownValues: true }))
+    await app.init()
   })
 
   it('should return "Hello World!"', async () => {

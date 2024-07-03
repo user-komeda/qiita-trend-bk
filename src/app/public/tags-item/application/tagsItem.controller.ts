@@ -2,6 +2,7 @@ import { Controller, Get, Param } from '@nestjs/common'
 
 import { ItemsData } from 'src/types/itemsData'
 
+import { TagId } from '../../../form/tagId/tagId'
 import { TagsItemService } from '../domain/tagsItem.service'
 
 /**
@@ -16,7 +17,7 @@ export class TagsItemController {
    * @param id - tagId
    */
   @Get('')
-  getItemsFromTag(@Param('tagId') id: string): Promise<ItemsData[]> {
-    return this.tagsItemService.getItemsFromTag(id)
+  getItemsFromTag(@Param() id: TagId): Promise<ItemsData[]> {
+    return this.tagsItemService.getItemsFromTag(id.tagId)
   }
 }

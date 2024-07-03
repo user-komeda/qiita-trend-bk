@@ -1,5 +1,6 @@
 import { Controller, Get, Param } from '@nestjs/common'
 
+import { ItemsId } from '../../../form/itemsId/itemsId'
 import { CommentService } from '../domain/comment.service'
 
 /**
@@ -14,7 +15,7 @@ export class CommentController {
    * @param id - 記事のid
    */
   @Get()
-  getItemComment(@Param('itemsId') id: string): Promise<string[]> {
-    return this.commentService.getItemComment(id)
+  getItemComment(@Param() id: ItemsId): Promise<string[]> {
+    return this.commentService.getItemComment(id.itemsId)
   }
 }
