@@ -7,6 +7,7 @@ import { DEFAULT_PORT } from './const'
 async function bootstrap(): Promise<void> {
   const app = await NestFactory.create(AppModule)
   app.useGlobalPipes(new ValidationPipe({ stopAtFirstError: true }))
+  app.enableCors()
   await app.listen(DEFAULT_PORT)
 }
 bootstrap()
