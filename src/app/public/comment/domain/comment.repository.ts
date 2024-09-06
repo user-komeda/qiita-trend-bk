@@ -8,5 +8,4 @@ export interface CommentRepository {
   getItemComment(id: string): Promise<string[]>
 }
 /** CommentRepositorySymbol */
-// eslint-disable-next-line @typescript-eslint/naming-convention
 export const CommentRepository = Symbol('CommentRepository')

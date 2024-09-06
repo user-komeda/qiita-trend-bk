@@ -10,5 +10,4 @@ export interface ItemsDetailRepository {
   getDetailItems(id: string): Promise<ItemsData>
 }
 /** ItemsDetailRepository */
-// eslint-disable-next-line @typescript-eslint/naming-convention
 export const ItemsDetailRepository = Symbol('ItemsDetailRepository')

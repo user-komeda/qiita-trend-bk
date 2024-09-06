@@ -6,7 +6,7 @@ import { of } from 'rxjs/internal/observable/of'
 import { ItemsDetailRepository } from '../domain/itemsDetail.repository'
 
 import { ItemsDetailRepositoryImpl } from './itemsDetail.repositoryImpl'
-/* eslint-disable  @typescript-eslint/naming-convention, camelcase */
+/* eslint-disable  camelcase */
 
 const httpServiceMockData = {
   rendered_body:
@@ -67,7 +67,7 @@ const httpServiceMockData = {
   organization_url_name: 'ozvision',
   slide: false,
 }
-/* eslint-enable  @typescript-eslint/naming-convention, camelcase */
+/* eslint-enable  camelcase */
 
 const testCase = async (
   httpService: HttpService,

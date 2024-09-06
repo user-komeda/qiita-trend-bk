@@ -10,5 +10,4 @@ export interface TagsItemRepository {
   getItemsFromTag(id: string): Promise<ItemsData[]>
 }
 /** TagsItemRepository */
-// eslint-disable-next-line @typescript-eslint/naming-convention
 export const TagsItemRepository = Symbol('TagsItemRepository')
