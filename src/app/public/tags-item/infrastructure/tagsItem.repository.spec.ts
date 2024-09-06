@@ -9,7 +9,7 @@ import { TagsItemRepository } from '../domain/tagsItem.repository'
 
 import { TagsItemRepositoryImpl } from './tagsItem.repositoryImpl'
 
-/* eslint-disable  @typescript-eslint/naming-convention, camelcase */
+/* eslint-disable  camelcase */
 const httpServiceMockData = [
   {
     rendered_body:
@@ -134,7 +134,7 @@ const httpServiceMockData = [
     slide: false,
   },
 ]
-/* eslint-enable  @typescript-eslint/naming-convention, camelcase */
+/* eslint-enable  camelcase */
 
 const responseData: ItemsData[] = [
   {

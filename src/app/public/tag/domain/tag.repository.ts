@@ -10,5 +10,4 @@ export interface TagRepository {
   getTags(): Promise<TagData[]>
 }
 /** TagRepository */
-// eslint-disable-next-line @typescript-eslint/naming-convention
 export const TagRepository = Symbol('TagRepository')

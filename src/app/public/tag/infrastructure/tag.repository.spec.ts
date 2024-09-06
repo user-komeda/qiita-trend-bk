@@ -9,7 +9,7 @@ import { TagRepository } from '../domain/tag.repository'
 
 import { TagRepositoryImpl } from './tag.repositoryImpl'
 
-/* eslint-disable  @typescript-eslint/naming-convention, camelcase */
+/* eslint-disable  camelcase */
 const mockData = [
   {
     followers_count: 186271,
@@ -33,7 +33,7 @@ const mockData = [
     items_count: 42534,
   },
 ]
-/* eslint-enable  @typescript-eslint/naming-convention, camelcase */
+/* eslint-enable  camelcase */
 
 const testCase = async (
   httpService: HttpService,
