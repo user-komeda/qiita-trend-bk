@@ -555,7 +555,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@eslint/compat@npm:^1.1.1, @eslint/compat@npm:^1.2.0":
+"@eslint/compat@npm:^1.1.1, @eslint/compat@npm:^1.2.1":
   version: 1.2.1
   resolution: "@eslint/compat@npm:1.2.1"
   peerDependencies:
@@ -610,16 +610,16 @@ __metadata:
   linkType: hard
 
 "@eslint/migrate-config@npm:^1.3.0":
-  version: 1.3.1
-  resolution: "@eslint/migrate-config@npm:1.3.1"
+  version: 1.3.2
+  resolution: "@eslint/migrate-config@npm:1.3.2"
   dependencies:
-    "@eslint/compat": "npm:^1.2.0"
+    "@eslint/compat": "npm:^1.2.1"
     "@eslint/eslintrc": "npm:^3.1.0"
     camelcase: "npm:^8.0.0"
     recast: "npm:^0.23.7"
   bin:
     eslint-migrate-config: src/migrate-config-cli.js
-  checksum: 10c0/795c8b4c3aebbe20fa9731e56ac7259826a5328b8eae5f62966e75df3fd20a7458ddc93393a934ff725e5fa1af9fd15f27da868dd23dda527dad02b683a22a2f
+  checksum: 10c0/033a0925cb18e633b895c9a2abba24ea8b03ebc32c067f33c8581eecb0e8154b0369d98d44cca4dfa6b867516b1c8871ce8c5a4f6a6713d1db4473e3a9f3c1fe
   languageName: node
   linkType: hard
 
