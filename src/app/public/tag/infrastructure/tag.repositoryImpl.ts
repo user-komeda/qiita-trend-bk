@@ -37,6 +37,7 @@ export class TagRepositoryImpl implements TagRepository {
       const result: TagData = {
         id: data.id,
         iconUrl: data.icon_url,
+        itemsCount: data.items_count,
       }
       return result
     })

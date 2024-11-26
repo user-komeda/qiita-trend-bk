@@ -10,4 +10,9 @@ export interface TagData {
    *iconUrl
    */
   iconUrl: string
+
+  /**
+   *items_count
+   */
+  itemsCount: number
 }
