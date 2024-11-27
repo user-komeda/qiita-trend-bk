@@ -7,7 +7,7 @@ export interface ItemsRepository {
   /**
    *すべての記事を取得
    */
-  getItems(): Promise<ItemsData[]>
+  getItems(startDate: string, endDate: string): Promise<ItemsData[]>
 }
 
 /** ItemsRepositorySymbol  */
