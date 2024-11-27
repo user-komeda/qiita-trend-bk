@@ -14,8 +14,14 @@ export class ItemsService {
   ) {}
   /**
    *すべての記事を取得
+   *
+   * @param startDate - startDate
+   *
+   * @param endDate - endDate
+   *
+   * @returns - ItemsData[]
    */
-  async getItems(): Promise<ItemsData[]> {
-    return this.itemsRepository.getItems()
+  async getItems(startDate: string, endDate: string): Promise<ItemsData[]> {
+    return this.itemsRepository.getItems(startDate, endDate)
   }
 }

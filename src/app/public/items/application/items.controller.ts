@@ -1,4 +1,4 @@
-import { Controller, Get, Param } from '@nestjs/common'
+import { Controller, Get, Param, Query } from '@nestjs/common'
 
 import { ItemsData } from 'src/types/itemsData'
 
@@ -17,11 +17,22 @@ export class ItemsController {
   ) {}
 
   /**
-   *すべての記事を取得
+   *getAllItems
+   *
+   * @param startDate - startDate
+   *
+   * @param endDate - endDate
+   *
+   * @returns - ItemsData[]
    */
   @Get()
-  getAllItems(): Promise<ItemsData[]> {
-    return this.itemsService.getItems()
+  getAllItems(
+    @Query('startDate')
+    startDate: string,
+    @Query('endDate')
+    endDate: string,
+  ): Promise<ItemsData[]> {
+    return this.itemsService.getItems(startDate, endDate)
   }
 
   /**
