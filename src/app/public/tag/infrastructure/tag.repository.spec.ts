@@ -44,16 +44,19 @@ const testCase = async (
       id: 'Python',
       iconUrl:
         'https://s3-ap-northeast-1.amazonaws.com/qiita-tag-image/0ee2c162b0573701a6baf468f4d30549f8d03e9b/medium.jpg?1660803670',
+      itemsCount: 81889,
     },
     {
       id: 'JavaScript',
       iconUrl:
         'https://s3-ap-northeast-1.amazonaws.com/qiita-tag-image/12ab79a9d2e703932a2c08dc6a4bcc9fb544f5c3/medium.jpg?1650353657',
+      itemsCount: 56887,
     },
     {
       id: 'AWS',
       iconUrl:
         'https://s3-ap-northeast-1.amazonaws.com/qiita-tag-image/e92cc40a9770111ffa5833b87b3fb7e04a0a2b5e/medium.jpg?1650353581',
+      itemsCount: 42534,
     },
   ]
   jest.spyOn(httpService, 'get').mockImplementationOnce(() => {

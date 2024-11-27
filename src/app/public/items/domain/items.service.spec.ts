@@ -42,7 +42,7 @@ const testCase = async (
   jest.spyOn(itemsRepository, 'getItems').mockImplementationOnce(() => {
     return Promise.resolve(mockData)
   })
-  const result = await itemService.getItems()
+  const result = await itemService.getItems('2021-01-01', '2021-01-31')
   expect(itemsRepository.getItems).toHaveBeenCalled()
   expect(result).toEqual(result)
 }

@@ -13,11 +13,17 @@ import { ItemsRepository } from '../domain/items.repository'
 export class ItemsRepositoryImpl implements ItemsRepository {
   constructor(private readonly httpService: HttpService) {}
   /**
-   *すべての記事を取得
+   *getItems
+   *
+   * @param startDate - startDate.
+   *
+   * @param endDate - endDate
+   *
+   * @returns - ItemsData[]
    */
-  async getItems(): Promise<ItemsData[]> {
+  async getItems(startDate: string, endDate: string): Promise<ItemsData[]> {
     return await lastValueFrom(
-      this.httpService.get(this.buildUrl()).pipe(
+      this.httpService.get(this.buildUrl(startDate, endDate)).pipe(
         map((response) => {
           return this.convertResponseData(response.data)
         }),
@@ -25,8 +31,8 @@ export class ItemsRepositoryImpl implements ItemsRepository {
     )
   }
 
-  private buildUrl(): string {
-    return 'https://qiita.com/api/v2/items?sort=stock&per_page=100&query=created%3A%3E%3D2020-01-01+created%3A%3C%3D2020-01-31'
+  private buildUrl(startDate: string, endDate: string): string {
+    return `https://qiita.com/api/v2/items?sort=stock&per_page=100&query=created%3A%3E%3D${startDate}+created%3A%3C%3D${endDate}`
   }
 
   private convertResponseData(dataList: any): ItemsData[] {

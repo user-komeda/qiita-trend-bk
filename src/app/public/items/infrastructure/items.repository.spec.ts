@@ -174,7 +174,7 @@ describe('itemsRepository', () => {
         data: httpServiceMockData,
       } as AxiosResponse)
     })
-    const result = await repository.getItems()
+    const result = await repository.getItems('2021-01-01', '2021-01-31')
     expect(httpService.get).toHaveBeenCalled()
     expect(result).toEqual(responseData)
   })
