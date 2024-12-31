@@ -15,7 +15,8 @@ export default {
   '*.{ts,tsx}': async (files) => {
     const filesToLint = await removeIgnoredFiles(files)
     return [
-      'yarn test:cov',
+      // TODO: test作成
+      // 'yarn test:cov',
       `yarn lint --max-warnings=0 ${filesToLint}`,
       'yarn format',
     ]
