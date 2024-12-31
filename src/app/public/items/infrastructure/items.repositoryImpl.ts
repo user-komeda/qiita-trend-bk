@@ -32,7 +32,10 @@ export class ItemsRepositoryImpl implements ItemsRepository {
   }
 
   private buildUrl(startDate: string, endDate: string): string {
-    return `https://qiita.com/api/v2/items?sort=stock&per_page=100&query=created%3A%3E%3D${startDate}+created%3A%3C%3D${endDate}`
+    if (startDate && endDate) {
+      return `https://qiita.com/api/v2/items?sort=stock&per_page=100&query=created%3A%3E%3D${startDate}+created%3A%3C%3D${endDate}`
+    }
+    return `https://qiita.com/api/v2/items?sort=stock&per_page=100`
   }
 
   private convertResponseData(dataList: any): ItemsData[] {
