@@ -2485,9 +2485,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@vitest/eslint-plugin@npm:1.2.3":
-  version: 1.2.3
-  resolution: "@vitest/eslint-plugin@npm:1.2.3"
+"@vitest/eslint-plugin@npm:1.2.4":
+  version: 1.2.4
+  resolution: "@vitest/eslint-plugin@npm:1.2.4"
   dependencies:
     "@typescript-eslint/utils": "npm:^8.24.0"
   peerDependencies:
@@ -2499,7 +2499,7 @@ __metadata:
       optional: true
     vitest:
       optional: true
-  checksum: 10c0/0dced03fd277267e9e713e088fbbb0d8cdfd3138d1700d611e703ad202d9943dc06a3e17eb57b0ad77d335415043026444971eebaf1120bc216aa404fae68088
+  checksum: 10c0/3522d7753bfc9cff48639613d9d216b9c03f9055dba2925ca472d389464bc516dd8e1ee9ff1f0c1c4b7324b90965434c0d222ccdf3ad4dada122a4e43e8c0ede
   languageName: node
   linkType: hard
 
@@ -7414,7 +7414,7 @@ __metadata:
     "@typescript-eslint/eslint-plugin": "npm:^8.0.0"
     "@typescript-eslint/parser": "npm:^8.0.0"
     "@vitest/coverage-v8": "npm:3.2.3"
-    "@vitest/eslint-plugin": "npm:1.2.3"
+    "@vitest/eslint-plugin": "npm:1.2.4"
     axios: "npm:^1.7.2"
     class-transformer: "npm:^0.5.1"
     class-validator: "npm:^0.14.1"
