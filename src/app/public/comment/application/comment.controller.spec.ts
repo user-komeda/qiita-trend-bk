@@ -1,6 +1,7 @@
 import { HttpModule } from '@nestjs/axios'
 import { ValidationPipe } from '@nestjs/common/pipes/validation.pipe'
 import { Test, TestingModule } from '@nestjs/testing'
+import { describe, test, expect, vi, beforeEach } from 'vitest'
 
 import { CommentRepository } from '../domain/comment.repository'
 import { CommentService } from '../domain/comment.service'
@@ -13,7 +14,7 @@ const testCase1 = async (
 ): Promise<void> => {
   const requestData = { itemsId: 'e37caf50776e00e733be' }
   const responseData = ['comment', 'comment2', 'comment3']
-  jest.spyOn(service, 'getItemComment').mockImplementationOnce(() => {
+  vi.spyOn(service, 'getItemComment').mockImplementationOnce(() => {
     return Promise.resolve(responseData)
   })
   const result = await controller.getItemComment(requestData)
@@ -43,7 +44,7 @@ describe('CommentController', () => {
     await app.init()
   })
 
-  it('should be defined', async () => {
+  test('should be defined', async () => {
     expect(testCase1(controller, service)).toBeTruthy()
   })
 })

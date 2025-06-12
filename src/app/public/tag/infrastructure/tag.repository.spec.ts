@@ -2,6 +2,7 @@ import { HttpModule, HttpService } from '@nestjs/axios'
 import { Test, TestingModule } from '@nestjs/testing'
 import { AxiosResponse } from 'axios'
 import { of } from 'rxjs/internal/observable/of'
+import { beforeEach, describe, expect, test, vi } from 'vitest'
 
 import { TagData } from 'src/types/tagData'
 
@@ -59,7 +60,7 @@ const testCase = async (
       itemsCount: 42534,
     },
   ]
-  jest.spyOn(httpService, 'get').mockImplementationOnce(() => {
+  vi.spyOn(httpService, 'get').mockImplementationOnce(() => {
     return of({
       data: mockData,
     } as AxiosResponse)
@@ -83,7 +84,7 @@ describe('TagService', () => {
     httpService = module.get<HttpService>(HttpService)
   })
 
-  it('should be defined', async () => {
+  test('should be defined', async () => {
     expect(testCase(httpService, repository)).toBeTruthy()
   })
 })

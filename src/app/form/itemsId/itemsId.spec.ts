@@ -1,6 +1,7 @@
 import { ValidatorOptions } from '@nestjs/common/interfaces/external/validator-options.interface'
 import { plainToInstance } from 'class-transformer'
 import { ValidationOptions, validate } from 'class-validator'
+import { describe, test, expect } from 'vitest'
 
 import { CURRENT_VALIDATION_ERROR, ZERO } from '../../../const'
 import {
@@ -96,35 +97,35 @@ describe('itemsIdValidation', () => {
     stopAtFirstError: true,
     forbidUnknownValues: false,
   }
-  it('should complete validation', async () => {
+  test('should complete validation', async () => {
     expect(testCase1(option)).toBeTruthy()
   })
 
-  it('should throw error when itemsId is empty', async () => {
+  test('should throw error when itemsId is empty', async () => {
     expect(testCase2(option)).toBeTruthy()
   })
 
-  it('should throw error when itemsId is null', async () => {
+  test('should throw error when itemsId is null', async () => {
     expect(testCase3(option)).toBeTruthy()
   })
 
-  it('should throw error when itemsId is undefined', async () => {
+  test('should throw error when itemsId is undefined', async () => {
     expect(testCase4(option)).toBeTruthy()
   })
 
-  it('should throw error when itemsId is greater than 20', async () => {
+  test('should throw error when itemsId is greater than 20', async () => {
     expect(testCase5(option)).toBeTruthy()
   })
 
-  it('should throw error when itemsId is less than 20', async () => {
+  test('should throw error when itemsId is less than 20', async () => {
     expect(testCase6(option)).toBeTruthy()
   })
 
-  it('should throw error when itemsId not match regExp', async () => {
+  test('should throw error when itemsId not match regExp', async () => {
     expect(testCase7(option)).toBeTruthy()
   })
 
-  it('should throw error when itemsId not match regExp2', async () => {
+  test('should throw error when itemsId not match regExp2', async () => {
     expect(testCase8(option)).toBeTruthy()
   })
 })

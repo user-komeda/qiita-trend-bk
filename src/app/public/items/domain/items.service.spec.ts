@@ -1,5 +1,6 @@
 import { HttpModule } from '@nestjs/axios'
 import { Test, TestingModule } from '@nestjs/testing'
+import { beforeEach, describe, expect, test, vi } from 'vitest'
 
 import { ItemsData } from 'src/types/itemsData'
 
@@ -39,7 +40,7 @@ const testCase = async (
   itemService: ItemsService,
   itemsRepository: ItemsRepository,
 ): Promise<void> => {
-  jest.spyOn(itemsRepository, 'getItems').mockImplementationOnce(() => {
+  vi.spyOn(itemsRepository, 'getItems').mockImplementationOnce(() => {
     return Promise.resolve(mockData)
   })
   const result = await itemService.getItems('2021-01-01', '2021-01-31')
@@ -64,7 +65,7 @@ describe('itemService', () => {
     itemsRepository = app.get<ItemsRepository>(ItemsRepository)
   })
 
-  it('should return "Hello World!"', async () => {
+  test('should return "Hello World!"', async () => {
     expect(testCase(itemService, itemsRepository)).toBeTruthy()
   })
 })

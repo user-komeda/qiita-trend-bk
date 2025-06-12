@@ -2,6 +2,7 @@ import { HttpModule, HttpService } from '@nestjs/axios'
 import { Test, TestingModule } from '@nestjs/testing'
 import { AxiosResponse } from 'axios'
 import { of } from 'rxjs/internal/observable/of'
+import { beforeEach, describe, expect, test, vi } from 'vitest'
 
 import { ItemsData } from 'src/types/itemsData'
 
@@ -168,13 +169,24 @@ describe('itemsRepository', () => {
     httpService = module.get<HttpService>(HttpService)
   })
 
-  it('should be defined', async () => {
-    jest.spyOn(httpService, 'get').mockImplementationOnce(() => {
+  test('should be defined', async () => {
+    vi.spyOn(httpService, 'get').mockImplementationOnce(() => {
       return of({
         data: httpServiceMockData,
       } as AxiosResponse)
     })
     const result = await repository.getItems('2021-01-01', '2021-01-31')
+    expect(httpService.get).toHaveBeenCalled()
+    expect(result).toEqual(responseData)
+  })
+
+  test('should be defined', async () => {
+    vi.spyOn(httpService, 'get').mockImplementationOnce(() => {
+      return of({
+        data: httpServiceMockData,
+      } as AxiosResponse)
+    })
+    const result = await repository.getItems('', '')
     expect(httpService.get).toHaveBeenCalled()
     expect(result).toEqual(responseData)
   })

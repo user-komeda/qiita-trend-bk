@@ -1,5 +1,6 @@
 import { HttpModule } from '@nestjs/axios'
 import { Test, TestingModule } from '@nestjs/testing'
+import { beforeEach, describe, expect, test, vi } from 'vitest'
 
 import { CommentRepositoryImpl } from '../infrastructure/comment.repositoryImpl'
 
@@ -23,10 +24,10 @@ describe('CommentService', () => {
     repository = module.get<CommentRepositoryImpl>(CommentRepository)
   })
 
-  it('should be defined', async () => {
+  test('should be defined', async () => {
     const requestData = 'e37caf50776e00e733be'
     const responseData = ['comment', 'comment2', 'comment3']
-    jest.spyOn(repository, 'getItemComment').mockImplementationOnce(() => {
+    vi.spyOn(repository, 'getItemComment').mockImplementationOnce(() => {
       return Promise.resolve(responseData)
     })
     const result = await service.getItemComment(requestData)

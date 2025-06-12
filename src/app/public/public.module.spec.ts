@@ -1,4 +1,5 @@
 import { Test } from '@nestjs/testing'
+import { describe, expect, test } from 'vitest'
 
 import { CommentModule } from './comment/comment.module'
 import { ItemsModule } from './items/items.module'
@@ -7,7 +8,7 @@ import { TagModule } from './tag/tag.module'
 import { TagsItemModule } from './tags-item/tagsItens.module'
 
 describe('publicModule', () => {
-  it('should compile the module', async () => {
+  test('should compile the module', async () => {
     const module = await Test.createTestingModule({
       imports: [PublicModule],
     }).compile()
