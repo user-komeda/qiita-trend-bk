@@ -2,7 +2,6 @@ import { fixupConfigRules, fixupPluginRules } from '@eslint/compat'
 import typescriptEslintEslintPlugin from '@typescript-eslint/eslint-plugin'
 import _import from 'eslint-plugin-import'
 import unusedImports from 'eslint-plugin-unused-imports'
-import jest from 'eslint-plugin-jest'
 import checkFile from 'eslint-plugin-check-file'
 import jsdoc from 'eslint-plugin-jsdoc'
 import globals from 'globals'
@@ -79,8 +78,6 @@ export default [
       'plugin:@typescript-eslint/stylistic',
       'plugin:import/recommended',
       'plugin:import/typescript',
-      'plugin:jest/recommended',
-      'plugin:jest/style',
     ),
   ),
   {
@@ -88,7 +85,6 @@ export default [
       '@typescript-eslint': fixupPluginRules(typescriptEslintEslintPlugin),
       import: fixupPluginRules(_import),
       'unused-imports': unusedImports,
-      jest: fixupPluginRules(jest),
       'check-file': checkFile,
     },
 

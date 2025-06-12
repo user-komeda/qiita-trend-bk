@@ -1,5 +1,6 @@
 import { HttpModule } from '@nestjs/axios'
 import { Test, TestingModule } from '@nestjs/testing'
+import { beforeEach, describe, expect, test, vi } from 'vitest'
 
 import { TagData } from 'src/types/tagData'
 
@@ -33,7 +34,7 @@ const testCase = async (
       itemsCount: 42534,
     },
   ]
-  jest.spyOn(service, 'getTags').mockImplementationOnce(() => {
+  vi.spyOn(service, 'getTags').mockImplementationOnce(() => {
     return Promise.resolve(mockData)
   })
   const result = await controller.getTags()
@@ -59,7 +60,7 @@ describe('TagController', () => {
     service = module.get<TagService>(TagService)
   })
 
-  it('should be defined', async () => {
+  test('should be defined', async () => {
     expect(testCase(controller, service)).toBeTruthy()
   })
 })

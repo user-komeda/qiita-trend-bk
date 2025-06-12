@@ -1,6 +1,7 @@
 import { ValidatorOptions } from '@nestjs/common/interfaces/external/validator-options.interface'
 import { plainToInstance } from 'class-transformer'
 import { ValidationOptions, validate } from 'class-validator'
+import { describe, expect, test } from 'vitest'
 
 import { CURRENT_VALIDATION_ERROR } from '../../const'
 import { ItemsId } from '../form/itemsId/itemsId'
@@ -68,26 +69,26 @@ describe('getValidationErrorMessage', () => {
     forbidUnknownValues: false,
   }
 
-  it('should complete get error message for check length', async () => {
+  test('should complete get error message for check length', async () => {
     expect(testCase1(option)).toBeTruthy()
   })
 
-  it('should complete get error message for check length different error', async () => {
+  test('should complete get error message for check length different error', async () => {
     expect(testCase2(option)).toBeTruthy()
   })
-  it('should complete get error message for check isEmpty', async () => {
+  test('should complete get error message for check isEmpty', async () => {
     expect(testCase3(option)).toBeTruthy()
   })
 
-  it('should complete get error message for check isEmpty different error', async () => {
+  test('should complete get error message for check isEmpty different error', async () => {
     expect(testCase4(option)).toBeTruthy()
   })
 
-  it('should complete get error message for check match', async () => {
+  test('should complete get error message for check match', async () => {
     expect(testCase5(option)).toBeTruthy()
   })
 
-  it('should complete get error message for check match different error', async () => {
+  test('should complete get error message for check match different error', async () => {
     expect(testCase6(option)).toBeTruthy()
   })
 })

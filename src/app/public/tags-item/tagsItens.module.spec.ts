@@ -1,5 +1,6 @@
 import { HttpService } from '@nestjs/axios'
 import { Test } from '@nestjs/testing'
+import { describe, expect, test } from 'vitest'
 
 import { TagsItemController } from './application/tagsItem.controller'
 import { TagsItemRepository } from './domain/tagsItem.repository'
@@ -8,7 +9,7 @@ import { TagsItemRepositoryImpl } from './infrastructure/tagsItem.repositoryImpl
 import { TagsItemModule } from './tagsItens.module'
 
 describe('tagsItemModule', () => {
-  it('should compile the module', async () => {
+  test('should compile the module', async () => {
     const module = await Test.createTestingModule({
       imports: [TagsItemModule],
     }).compile()

@@ -1,5 +1,6 @@
 import { HttpService } from '@nestjs/axios'
 import { Test } from '@nestjs/testing'
+import { describe, expect, test } from 'vitest'
 
 import { CommentController } from './application/comment.controller'
 import { CommentModule } from './comment.module'
@@ -8,7 +9,7 @@ import { CommentService } from './domain/comment.service'
 import { CommentRepositoryImpl } from './infrastructure/comment.repositoryImpl'
 
 describe('commentModule', () => {
-  it('should compile the module', async () => {
+  test('should compile the module', async () => {
     const module = await Test.createTestingModule({
       imports: [CommentModule],
     }).compile()

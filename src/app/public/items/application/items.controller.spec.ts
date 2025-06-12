@@ -1,6 +1,7 @@
 import { HttpModule } from '@nestjs/axios'
 import { ValidationPipe } from '@nestjs/common/pipes/validation.pipe'
 import { Test, TestingModule } from '@nestjs/testing'
+import { beforeEach, describe, expect, test, vi } from 'vitest'
 
 import { ItemsData } from 'src/types/itemsData'
 
@@ -43,7 +44,7 @@ const testCase = async (
   itemsController: ItemsController,
   itemService: ItemsService,
 ): Promise<void> => {
-  jest.spyOn(itemService, 'getItems').mockImplementationOnce(() => {
+  vi.spyOn(itemService, 'getItems').mockImplementationOnce(() => {
     return Promise.resolve(mockData)
   })
   const result = await itemsController.getAllItems('2021-01-01', '2021-01-31')
@@ -56,7 +57,7 @@ const testCase2 = async (
 ): Promise<void> => {
   const requestData = { itemsId: 'e37caf50776e00e733be' }
 
-  jest.spyOn(itemDetailService, 'getDetailItems').mockImplementationOnce(() => {
+  vi.spyOn(itemDetailService, 'getDetailItems').mockImplementationOnce(() => {
     return Promise.resolve(mockData[FIRST_MOCK_DATA_INDEX])
   })
   const result = await itemsController.getItem(requestData)
@@ -89,10 +90,10 @@ describe('itemController', () => {
     await app.init()
   })
 
-  it('should return "Hello World!"', async () => {
+  test('should return "Hello World!"', async () => {
     expect(testCase(itemsController, itemService)).toBeTruthy()
   })
-  it('2should return "Hello World!"', async () => {
+  test('2should return "Hello World!"', async () => {
     expect(testCase2(itemsController, itemDetailService)).toBeTruthy()
   })
 })

@@ -1,11 +1,12 @@
 import { Test } from '@nestjs/testing'
+import { describe, expect, test } from 'vitest'
 
 import { AdminModule } from './admin/admin.module'
 import { AppModule } from './app.module'
 import { PublicModule } from './public/public.module'
 
 describe('appModule', () => {
-  it('should compile the module', async () => {
+  test('should compile the module', async () => {
     const module = await Test.createTestingModule({
       imports: [AppModule],
     }).compile()

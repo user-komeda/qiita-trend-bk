@@ -2,6 +2,7 @@ import { HttpModule, HttpService } from '@nestjs/axios'
 import { Test, TestingModule } from '@nestjs/testing'
 import { AxiosResponse } from 'axios'
 import { of } from 'rxjs/internal/observable/of'
+import { beforeEach, describe, expect, test, vi } from 'vitest'
 
 import { ItemsDetailRepository } from '../domain/itemsDetail.repository'
 
@@ -86,7 +87,7 @@ const testCase = async (
     url: 'https://qiita.com/terra_yucco/items/dbd83151ce9d74b016e8',
     pageViewsCount: 0,
   }
-  jest.spyOn(httpService, 'get').mockImplementationOnce(() => {
+  vi.spyOn(httpService, 'get').mockImplementationOnce(() => {
     return of({
       data: httpServiceMockData,
     } as AxiosResponse)
@@ -111,7 +112,7 @@ describe('itemsDetailRepository', () => {
     httpService = module.get<HttpService>(HttpService)
   })
 
-  it('should be defined', async () => {
+  test('should be defined', async () => {
     expect(testCase(httpService, repository)).toBeTruthy()
   })
 })
