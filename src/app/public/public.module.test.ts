@@ -9,6 +9,8 @@ import { TagsItemModule } from '@/public/tags-item/tagsItens.module'
 
 describe('publicModule', () => {
   test('should compile the module', async () => {
+    expect.hasAssertions()
+
     const module = await Test.createTestingModule({
       imports: [PublicModule],
     }).compile()

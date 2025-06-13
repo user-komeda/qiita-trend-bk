@@ -2,8 +2,8 @@ import { HttpService } from '@nestjs/axios'
 import { Injectable } from '@nestjs/common'
 import { lastValueFrom, map } from 'rxjs'
 
-import { ItemsData } from '@/types/itemsData'
 import { ItemsRepository } from '@/public/items/domain/items.repository'
+import { ItemsData } from '@/types/itemsData'
 
 /**
  *ItemsRepositoryImpl

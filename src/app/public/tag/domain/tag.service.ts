@@ -1,7 +1,7 @@
 import { Inject, Injectable } from '@nestjs/common'
 
-import { TagData } from '@/types/tagData'
 import { TagRepository } from '@/public/tag/domain/tag.repository'
+import { TagData } from '@/types/tagData'
 
 /**
  *TagService

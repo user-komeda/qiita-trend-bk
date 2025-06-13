@@ -23,7 +23,7 @@ export class LoginController {
   async login(
     @Body() body: string,
     @Res() res: Response,
-  ): Promise<Response<any, Record<string, any>>> {
+  ): Promise<Response> {
     const result = await this.loginService.login(body)
     return res
       .status(result.status)

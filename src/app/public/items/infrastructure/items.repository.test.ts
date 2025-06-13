@@ -4,11 +4,10 @@ import { AxiosResponse } from 'axios'
 import { of } from 'rxjs/internal/observable/of'
 import { beforeEach, describe, expect, test, vi } from 'vitest'
 
-import { ItemsData } from '@/types/itemsData'
 import { ItemsRepository } from '@/public/items/domain/items.repository'
 import { ItemsRepositoryImpl } from '@/public/items/infrastructure/items.repositoryImpl'
+import { ItemsData } from '@/types/itemsData'
 
-/* eslint-disable  camelcase */
 const httpServiceMockData = [
   {
     rendered_body:
@@ -125,7 +124,6 @@ const httpServiceMockData = [
     slide: false,
   },
 ]
-/* eslint-enable  camelcase */
 
 const responseData: ItemsData[] = [
   {
@@ -168,24 +166,36 @@ describe('itemsRepository', () => {
   })
 
   test('should be defined', async () => {
+    expect.hasAssertions()
+
+    const startDate = '2021-01-01'
+    const endDate = '2021-01-31'
     vi.spyOn(httpService, 'get').mockImplementationOnce(() => {
       return of({
         data: httpServiceMockData,
       } as AxiosResponse)
     })
-    const result = await repository.getItems('2021-01-01', '2021-01-31')
-    expect(httpService.get).toHaveBeenCalled()
-    expect(result).toEqual(responseData)
+    const result = await repository.getItems(startDate, endDate)
+
+    expect(httpService.get).toHaveBeenCalledWith(
+      `https://qiita.com/api/v2/items?sort=stock&per_page=100&query=created%3A%3E%3D${startDate}+created%3A%3C%3D${endDate}`,
+    )
+    expect(result).toStrictEqual(responseData)
   })
 
   test('should be defined', async () => {
+    expect.hasAssertions()
+
     vi.spyOn(httpService, 'get').mockImplementationOnce(() => {
       return of({
         data: httpServiceMockData,
       } as AxiosResponse)
     })
     const result = await repository.getItems('', '')
-    expect(httpService.get).toHaveBeenCalled()
-    expect(result).toEqual(responseData)
+
+    expect(httpService.get).toHaveBeenCalledWith(
+      'https://qiita.com/api/v2/items?sort=stock&per_page=100',
+    )
+    expect(result).toStrictEqual(responseData)
   })
 })

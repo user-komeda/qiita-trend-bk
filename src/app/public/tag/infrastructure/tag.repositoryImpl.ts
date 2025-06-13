@@ -2,8 +2,8 @@ import { HttpService } from '@nestjs/axios'
 import { Injectable } from '@nestjs/common'
 import { map, lastValueFrom } from 'rxjs'
 
-import { TagData } from '@/types/tagData'
 import { TagRepository } from '@/public/tag/domain/tag.repository'
+import { TagData } from '@/types/tagData'
 
 /**
  *TagRepositoryImpl

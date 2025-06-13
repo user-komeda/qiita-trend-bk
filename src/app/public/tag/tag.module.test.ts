@@ -10,6 +10,8 @@ import { TagModule } from '@/public/tag/tag.module'
 
 describe('tagModule', () => {
   test('should compile the module', async () => {
+    expect.hasAssertions()
+
     const module = await Test.createTestingModule({
       imports: [TagModule],
     }).compile()

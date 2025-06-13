@@ -2,11 +2,11 @@ import { HttpModule } from '@nestjs/axios'
 import { Test, TestingModule } from '@nestjs/testing'
 import { beforeEach, describe, expect, test, vi } from 'vitest'
 
-import { CommentRepositoryImpl } from '@/public/comment/infrastructure/comment.repositoryImpl'
 import { CommentRepository } from '@/public/comment/domain/comment.repository'
 import { CommentService } from '@/public/comment/domain/comment.service'
+import { CommentRepositoryImpl } from '@/public/comment/infrastructure/comment.repositoryImpl'
 
-describe('CommentService', () => {
+describe('comment_service', () => {
   let service: CommentService
   let repository: CommentRepository
 
@@ -24,13 +24,14 @@ describe('CommentService', () => {
   })
 
   test('should be defined', async () => {
+    expect.hasAssertions()
+
     const requestData = 'e37caf50776e00e733be'
     const responseData = ['comment', 'comment2', 'comment3']
-    vi.spyOn(repository, 'getItemComment').mockImplementationOnce(() => {
-      return Promise.resolve(responseData)
-    })
+    vi.spyOn(repository, 'getItemComment').mockResolvedValueOnce(responseData)
     const result = await service.getItemComment(requestData)
-    expect(repository.getItemComment).toHaveBeenCalled()
+
+    expect(repository.getItemComment).toHaveBeenCalledWith(requestData)
     expect(result).toStrictEqual(responseData)
   })
 })

@@ -16,7 +16,7 @@ export class LoginService {
    *
    * @returns - loginResult
    */
-  async login(body: string): Promise<AxiosResponse<any, any>> {
+  async login(body: string): Promise<AxiosResponse> {
     return lastValueFrom(
       this.httpService.post('https://qiita.com/api/v2/access_tokens', body),
     )

@@ -1,9 +1,9 @@
 import { Controller, Get, Param, Query } from '@nestjs/common'
 
-import { ItemsData } from '@/types/itemsData'
 import { ItemsId } from '@/form/itemsId/itemsId'
-import { ItemsDetailService } from '@/public/itemsdetail/domain/itemsDetail.service'
 import { ItemsService } from '@/public/items/domain/items.service'
+import { ItemsDetailService } from '@/public/itemsdetail/domain/itemsDetail.service'
+import { ItemsData } from '@/types/itemsData'
 
 /**
  *ItemsController

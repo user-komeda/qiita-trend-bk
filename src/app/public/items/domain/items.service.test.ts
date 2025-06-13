@@ -2,10 +2,10 @@ import { HttpModule } from '@nestjs/axios'
 import { Test, TestingModule } from '@nestjs/testing'
 import { beforeEach, describe, expect, test, vi } from 'vitest'
 
-import { ItemsData } from '@/types/itemsData'
-import { ItemsRepositoryImpl } from '@/public/items/infrastructure/items.repositoryImpl'
 import { ItemsRepository } from '@/public/items/domain/items.repository'
 import { ItemsService } from '@/public/items/domain/items.service'
+import { ItemsRepositoryImpl } from '@/public/items/infrastructure/items.repositoryImpl'
+import { ItemsData } from '@/types/itemsData'
 
 const mockData: ItemsData[] = [
   {
@@ -37,13 +37,18 @@ const mockData: ItemsData[] = [
 const testCase = async (
   itemService: ItemsService,
   itemsRepository: ItemsRepository,
-): Promise<void> => {
-  vi.spyOn(itemsRepository, 'getItems').mockImplementationOnce(() => {
-    return Promise.resolve(mockData)
-  })
-  const result = await itemService.getItems('2021-01-01', '2021-01-31')
-  expect(itemsRepository.getItems).toHaveBeenCalled()
-  expect(result).toEqual(result)
+): Promise<boolean> => {
+  expect.hasAssertions()
+
+  const startDate = '2021-01-01'
+  const endDate = '2021-01-31'
+  vi.spyOn(itemsRepository, 'getItems').mockResolvedValueOnce(mockData)
+  const result = await itemService.getItems(startDate, endDate)
+
+  expect(itemsRepository.getItems).toHaveBeenCalledWith(startDate, endDate)
+  expect(result).toStrictEqual(result)
+
+  return true
 }
 
 describe('itemService', () => {
@@ -64,6 +69,7 @@ describe('itemService', () => {
   })
 
   test('should return "Hello World!"', async () => {
-    expect(testCase(itemService, itemsRepository)).toBeTruthy()
+    expect.hasAssertions()
+    await expect(testCase(itemService, itemsRepository)).resolves.toBe(true)
   })
 })

@@ -2,15 +2,17 @@ import { HttpModule } from '@nestjs/axios'
 import { Test, TestingModule } from '@nestjs/testing'
 import { beforeEach, describe, expect, test, vi } from 'vitest'
 
-import { TagData } from '@/types/tagData'
-import { TagRepositoryImpl } from '@/public/tag/infrastructure/tag.repositoryImpl'
 import { TagRepository } from '@/public/tag/domain/tag.repository'
 import { TagService } from '@/public/tag/domain/tag.service'
+import { TagRepositoryImpl } from '@/public/tag/infrastructure/tag.repositoryImpl'
+import { TagData } from '@/types/tagData'
 
 const testCase = async (
   service: TagService,
   repository: TagRepository,
-): Promise<void> => {
+): Promise<boolean> => {
+  expect.hasAssertions()
+
   const mockData: TagData[] = [
     {
       id: 'Python',
@@ -31,15 +33,16 @@ const testCase = async (
       itemsCount: 42534,
     },
   ]
-  vi.spyOn(repository, 'getTags').mockImplementationOnce(() => {
-    return Promise.resolve(mockData)
-  })
+  vi.spyOn(repository, 'getTags').mockResolvedValueOnce(mockData)
   const result = await service.getTags()
-  expect(result).toEqual(mockData)
-  expect(repository.getTags).toHaveBeenCalled()
+
+  expect(result).toStrictEqual(mockData)
+  expect(repository.getTags).toHaveBeenCalledWith()
+
+  return true
 }
 
-describe('TagService', () => {
+describe('tag_service', () => {
   let service: TagService
   let repository: TagRepository
 
@@ -57,6 +60,7 @@ describe('TagService', () => {
   })
 
   test('should be defined', async () => {
-    expect(testCase(service, repository)).toBeTruthy()
+    expect.hasAssertions()
+    await expect(testCase(service, repository)).resolves.toBe(true)
   })
 })

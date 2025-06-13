@@ -10,6 +10,8 @@ import { ItemsModule } from '@/public/items/items.module'
 
 describe('itemsModule', () => {
   test('should compile the module', async () => {
+    expect.hasAssertions()
+
     const module = await Test.createTestingModule({
       imports: [ItemsModule],
     }).compile()

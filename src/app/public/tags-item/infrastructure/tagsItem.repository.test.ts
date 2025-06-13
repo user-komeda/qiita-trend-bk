@@ -4,11 +4,10 @@ import { AxiosResponse } from 'axios'
 import { of } from 'rxjs/internal/observable/of'
 import { beforeEach, describe, expect, test, vi } from 'vitest'
 
-import { ItemsData } from '@/types/itemsData'
 import { TagsItemRepository } from '@/public/tags-item/domain/tagsItem.repository'
 import { TagsItemRepositoryImpl } from '@/public/tags-item/infrastructure/tagsItem.repositoryImpl'
+import { ItemsData } from '@/types/itemsData'
 
-/* eslint-disable  camelcase */
 const httpServiceMockData = [
   {
     rendered_body:
@@ -133,7 +132,6 @@ const httpServiceMockData = [
     slide: false,
   },
 ]
-/* eslint-enable  camelcase */
 
 const responseData: ItemsData[] = [
   {
@@ -178,15 +176,19 @@ describe('tagsItemRepository', () => {
   })
 
   test('should be defined', async () => {
-    const requestData = 'wifi'
+    expect.hasAssertions()
 
+    const requestData = 'wifi'
     vi.spyOn(httpService, 'get').mockImplementationOnce(() => {
       return of({
         data: httpServiceMockData,
       } as AxiosResponse)
     })
     const result = await repository.getItemsFromTag(requestData)
-    expect(httpService.get).toHaveBeenCalled()
-    expect(result).toEqual(responseData)
+
+    expect(httpService.get).toHaveBeenCalledWith(
+      `https://qiita.com/api/v2/items?per_page=100&query=tags:${requestData}`,
+    )
+    expect(result).toStrictEqual(responseData)
   })
 })

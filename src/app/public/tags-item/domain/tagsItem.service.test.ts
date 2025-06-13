@@ -2,11 +2,10 @@ import { HttpModule } from '@nestjs/axios'
 import { Test, TestingModule } from '@nestjs/testing'
 import { beforeEach, describe, expect, test, vi } from 'vitest'
 
-import { ItemsData } from '@/types/itemsData'
 import { TagsItemRepository } from '@/public/tags-item/domain/tagsItem.repository'
 import { TagsItemService } from '@/public/tags-item/domain/tagsItem.service'
 import { TagsItemRepositoryImpl } from '@/public/tags-item/infrastructure/tagsItem.repositoryImpl'
-import { TagsItemController } from '@/public/tags-item/application/tagsItem.controller'
+import { ItemsData } from '@/types/itemsData'
 
 const mockData: ItemsData[] = [
   {
@@ -36,38 +35,40 @@ const mockData: ItemsData[] = [
 ]
 
 const testCase = async (
-  controller: TagsItemController,
   service: TagsItemService,
-): Promise<void> => {
-  const requestData = { tagId: 'wifi' }
+  repository: TagsItemRepository,
+): Promise<boolean> => {
+  expect.hasAssertions()
 
-  vi.spyOn(service, 'getItemsFromTag').mockImplementationOnce(() => {
-    return Promise.resolve(mockData)
-  })
-  const result = await controller.getItemsFromTag(requestData)
-  expect(result).toEqual(mockData)
-  expect(service.getItemsFromTag).toHaveBeenCalled()
+  const requestData = 'wifi'
+  vi.spyOn(repository, 'getItemsFromTag').mockResolvedValueOnce(mockData)
+  const result = await service.getItemsFromTag(requestData)
+
+  expect(repository.getItemsFromTag).toHaveBeenCalledWith(requestData)
+  expect(result).toStrictEqual(mockData)
+
+  return true
 }
 
-describe('TagsItemController', () => {
-  let controller: TagsItemController
+describe('tags_item_service', () => {
   let service: TagsItemService
+  let repository: TagsItemRepository
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       imports: [HttpModule],
-      controllers: [TagsItemController],
       providers: [
         TagsItemService,
         { provide: TagsItemRepository, useClass: TagsItemRepositoryImpl },
       ],
     }).compile()
 
-    controller = module.get<TagsItemController>(TagsItemController)
     service = module.get<TagsItemService>(TagsItemService)
+    repository = module.get<TagsItemRepository>(TagsItemRepository)
   })
 
   test('should be defined', async () => {
-    expect(testCase(controller, service)).toBeTruthy()
+    expect.hasAssertions()
+    await expect(testCase(service, repository)).resolves.toBe(true)
   })
 })

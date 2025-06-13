@@ -7,6 +7,8 @@ import { PublicModule } from '@/public/public.module'
 
 describe('appModule', () => {
   test('should compile the module', async () => {
+    expect.hasAssertions()
+
     const module = await Test.createTestingModule({
       imports: [AppModule],
     }).compile()

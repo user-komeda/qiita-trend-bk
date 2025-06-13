@@ -24,7 +24,13 @@ export default tseslint.config(
     plugins: {
       'unused-imports': unusedImports,
     },
+    settings: {
+      'import/resolver': {
+        typescript: {},
+      },
+    },
     rules: {
+      '@typescript-eslint/unbound-method': 'off',
       '@typescript-eslint/no-unused-vars': 'off',
       '@typescript-eslint/no-extraneous-class': 'off', // This rule is not compatible with NestJS
       'unused-imports/no-unused-imports': 'error',
@@ -52,7 +58,7 @@ export default tseslint.config(
     },
   },
   {
-    files: ['**/*.spec.ts'],
+    files: ['src/**/*.test.ts'],
     settings: {
       vitest: {
         typecheck: true,
@@ -77,6 +83,7 @@ export default tseslint.config(
       ],
       'max-lines-per-function': ['error', 100],
       'max-params': ['error', 4],
+      ' @typescript-eslint/unbound-method': 'off',
     },
   },
 )

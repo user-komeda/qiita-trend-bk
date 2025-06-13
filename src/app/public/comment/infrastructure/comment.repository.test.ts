@@ -68,7 +68,7 @@ const httpServiceMockData = [
 const testCase = async (
   httpService: HttpService,
   repository: CommentRepository,
-): Promise<void> => {
+): Promise<boolean> => {
   const requestData = 'e37caf50776e00e733be'
   const responseData = httpServiceMockData.map((data) => {
     return data.body
@@ -79,11 +79,16 @@ const testCase = async (
     } as AxiosResponse)
   })
   const result = await repository.getItemComment(requestData)
-  expect(httpService.get).toHaveBeenCalled()
+
+  expect(httpService.get).toHaveBeenCalledWith(
+    `https://qiita.com/api/v2/items/${requestData}/comments?per_page=100`,
+  )
   expect(result).toStrictEqual(responseData)
+
+  return true
 }
 
-describe('CommentRepository', () => {
+describe('comment_repository', () => {
   let repository: CommentRepository
   let httpService: HttpService
 
@@ -99,6 +104,7 @@ describe('CommentRepository', () => {
   })
 
   test('should be defined', async () => {
-    expect(testCase(httpService, repository)).toBeTruthy()
+    expect.hasAssertions()
+    await expect(testCase(httpService, repository)).resolves.toBe(true)
   })
 })
