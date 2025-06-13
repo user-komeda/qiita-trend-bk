@@ -4,13 +4,10 @@ import { AxiosResponse } from 'axios'
 import { of } from 'rxjs/internal/observable/of'
 import { beforeEach, describe, expect, test, vi } from 'vitest'
 
-import { TagData } from 'src/types/tagData'
+import { TagRepository } from '@/public/tag/domain/tag.repository'
+import { TagRepositoryImpl } from '@/public/tag/infrastructure/tag.repositoryImpl'
+import { TagData } from '@/types/tagData'
 
-import { TagRepository } from '../domain/tag.repository'
-
-import { TagRepositoryImpl } from './tag.repositoryImpl'
-
-/* eslint-disable  camelcase */
 const mockData = [
   {
     followers_count: 186271,
@@ -34,12 +31,13 @@ const mockData = [
     items_count: 42534,
   },
 ]
-/* eslint-enable  camelcase */
 
 const testCase = async (
   httpService: HttpService,
   repository: TagRepository,
-): Promise<void> => {
+): Promise<boolean> => {
+  expect.hasAssertions()
+
   const responseData: TagData[] = [
     {
       id: 'Python',
@@ -66,11 +64,16 @@ const testCase = async (
     } as AxiosResponse)
   })
   const result = await repository.getTags()
-  expect(result).toEqual(responseData)
-  expect(httpService.get).toHaveBeenCalled()
+
+  expect(result).toStrictEqual(responseData)
+  expect(httpService.get).toHaveBeenCalledWith(
+    'https://qiita.com/api/v2/tags?per_page=100&sort=count',
+  )
+
+  return true
 }
 
-describe('TagService', () => {
+describe('tag_service', () => {
   let repository: TagRepository
   let httpService: HttpService
 
@@ -85,6 +88,7 @@ describe('TagService', () => {
   })
 
   test('should be defined', async () => {
-    expect(testCase(httpService, repository)).toBeTruthy()
+    expect.hasAssertions()
+    await expect(testCase(httpService, repository)).resolves.toBe(true)
   })
 })

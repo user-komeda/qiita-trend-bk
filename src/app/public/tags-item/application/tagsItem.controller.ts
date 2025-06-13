@@ -1,9 +1,8 @@
 import { Controller, Get, Param } from '@nestjs/common'
 
-import { ItemsData } from 'src/types/itemsData'
-
-import { TagId } from '../../../form/tagId/tagId'
-import { TagsItemService } from '../domain/tagsItem.service'
+import { TagId } from '@/form/tagId/tagId'
+import { TagsItemService } from '@/public/tags-item/domain/tagsItem.service'
+import { ItemsData } from '@/types/itemsData'
 
 /**
  *TagsItemController.

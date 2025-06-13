@@ -3,30 +3,32 @@ import { ValidationPipe } from '@nestjs/common/pipes/validation.pipe'
 import { Test, TestingModule } from '@nestjs/testing'
 import { describe, test, expect, vi, beforeEach } from 'vitest'
 
-import { CommentRepository } from '../domain/comment.repository'
-import { CommentService } from '../domain/comment.service'
-import { CommentRepositoryImpl } from '../infrastructure/comment.repositoryImpl'
-
-import { CommentController } from './comment.controller'
+import { CommentController } from '@/public/comment/application/comment.controller'
+import { CommentRepository } from '@/public/comment/domain/comment.repository'
+import { CommentService } from '@/public/comment/domain/comment.service'
+import { CommentRepositoryImpl } from '@/public/comment/infrastructure/comment.repositoryImpl'
 const testCase1 = async (
   controller: CommentController,
   service: CommentService,
-): Promise<void> => {
+): Promise<boolean> => {
+  expect.hasAssertions()
+
   const requestData = { itemsId: 'e37caf50776e00e733be' }
   const responseData = ['comment', 'comment2', 'comment3']
-  vi.spyOn(service, 'getItemComment').mockImplementationOnce(() => {
-    return Promise.resolve(responseData)
-  })
+  vi.spyOn(service, 'getItemComment').mockResolvedValueOnce(responseData)
   const result = await controller.getItemComment(requestData)
-  expect(service.getItemComment).toHaveBeenCalled()
+
+  expect(service.getItemComment).toHaveBeenCalledWith(requestData.itemsId)
   expect(result).toBe(responseData)
+
+  return true
 }
 
-describe('CommentController', () => {
+describe('comment_controller', () => {
   let controller: CommentController
   let service: CommentService
 
-  beforeEach(async (): Promise<any> => {
+  beforeEach(async (): Promise<void> => {
     const module: TestingModule = await Test.createTestingModule({
       imports: [HttpModule],
       controllers: [CommentController],
@@ -45,6 +47,7 @@ describe('CommentController', () => {
   })
 
   test('should be defined', async () => {
-    expect(testCase1(controller, service)).toBeTruthy()
+    expect.hasAssertions()
+    await expect(testCase1(controller, service)).resolves.toBe(true)
   })
 })

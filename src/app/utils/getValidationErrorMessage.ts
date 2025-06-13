@@ -6,7 +6,7 @@ import { ValidationError } from '@nestjs/common/interfaces/external/validation-e
  * @param errors - error
  */
 export const getErrorForCheckLength = (errors: ValidationError): string => {
-  if (!errors.constraints || !errors.constraints.isLength) {
+  if (!errors.constraints?.isLength) {
     return ''
   }
   return errors.constraints.isLength
@@ -18,7 +18,7 @@ export const getErrorForCheckLength = (errors: ValidationError): string => {
  * @param errors - error
  */
 export const getErrorForCheckIsEmpty = (errors: ValidationError): string => {
-  if (!errors.constraints || !errors.constraints.isNotEmpty) {
+  if (!errors.constraints?.isNotEmpty) {
     return ''
   }
 
@@ -31,7 +31,7 @@ export const getErrorForCheckIsEmpty = (errors: ValidationError): string => {
  * @param errors - error
  */
 export const getErrorForCheckMather = (errors: ValidationError): string => {
-  if (!errors.constraints || !errors.constraints.matches) {
+  if (!errors.constraints?.matches) {
     return ''
   }
   return errors.constraints.matches

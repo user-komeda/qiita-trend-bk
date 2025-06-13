@@ -41,5 +41,5 @@ export interface ItemsData {
   /**
    *pageViewsCount
    */
-  pageViewsCount: number
+  pageViewsCount: number | null
 }

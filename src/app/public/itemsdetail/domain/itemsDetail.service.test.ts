@@ -2,17 +2,17 @@ import { HttpModule } from '@nestjs/axios'
 import { Test, TestingModule } from '@nestjs/testing'
 import { beforeEach, describe, expect, test, vi } from 'vitest'
 
-import { ItemsData } from 'src/types/itemsData'
-
-import { ItemsDetailRepositoryImpl } from '../infrastructure/itemsDetail.repositoryImpl'
-
-import { ItemsDetailRepository } from './itemsDetail.repository'
-import { ItemsDetailService } from './itemsDetail.service'
+import { ItemsDetailRepository } from '@/public/itemsdetail/domain/itemsDetail.repository'
+import { ItemsDetailService } from '@/public/itemsdetail/domain/itemsDetail.service'
+import { ItemsDetailRepositoryImpl } from '@/public/itemsdetail/infrastructure/itemsDetail.repositoryImpl'
+import { ItemsData } from '@/types/itemsData'
 
 const testCase = async (
   itemsDetailRepository: ItemsDetailRepository,
   itemsDetailService: ItemsDetailService,
-): Promise<void> => {
+): Promise<boolean> => {
+  expect.hasAssertions()
+
   const requestData = 'e37caf50776e00e733be'
   const mockData: ItemsData = {
     body: 'hello world',
@@ -26,15 +26,15 @@ const testCase = async (
     url: 'https://github.com/',
     pageViewsCount: 1,
   }
-
-  vi.spyOn(itemsDetailRepository, 'getDetailItems').mockImplementationOnce(
-    () => {
-      return Promise.resolve(mockData)
-    },
+  vi.spyOn(itemsDetailRepository, 'getDetailItems').mockResolvedValueOnce(
+    mockData,
   )
   const result = await itemsDetailService.getDetailItems(requestData)
-  expect(itemsDetailRepository.getDetailItems).toHaveBeenCalled()
-  expect(result).toEqual(mockData)
+
+  expect(itemsDetailRepository.getDetailItems).toHaveBeenCalledWith(requestData)
+  expect(result).toStrictEqual(mockData)
+
+  return true
 }
 
 describe('itemDetailService', () => {
@@ -57,6 +57,9 @@ describe('itemDetailService', () => {
   })
 
   test('should return "Hello World!"', async () => {
-    expect(testCase(itemsDetailRepository, itemDetailService)).toBeTruthy()
+    expect.hasAssertions()
+    await expect(
+      testCase(itemsDetailRepository, itemDetailService),
+    ).resolves.toBe(true)
   })
 })

@@ -1,8 +1,7 @@
 import { Inject, Injectable } from '@nestjs/common'
 
-import { ItemsData } from 'src/types/itemsData'
-
-import { ItemsDetailRepository } from './itemsDetail.repository'
+import { ItemsDetailRepository } from '@/public/itemsdetail/domain/itemsDetail.repository'
+import { ItemsData } from '@/types/itemsData'
 
 /**
  *ItemsDetailService

@@ -1,290 +1,106 @@
-import { fixupConfigRules, fixupPluginRules } from '@eslint/compat'
-import typescriptEslintEslintPlugin from '@typescript-eslint/eslint-plugin'
-import _import from 'eslint-plugin-import'
-import unusedImports from 'eslint-plugin-unused-imports'
-import checkFile from 'eslint-plugin-check-file'
-import jsdoc from 'eslint-plugin-jsdoc'
-import globals from 'globals'
-import tsParser from '@typescript-eslint/parser'
-import path from 'node:path'
-import { fileURLToPath } from 'node:url'
+import eslintNestJs from '@darraghor/eslint-plugin-nestjs-typed'
+import tseslint from 'typescript-eslint'
 import js from '@eslint/js'
-import { FlatCompat } from '@eslint/eslintrc'
+import globals from 'globals'
+import vitest from '@vitest/eslint-plugin'
+import prettier from 'eslint-config-prettier'
+import unusedImports from 'eslint-plugin-unused-imports'
+import importPlugin from 'eslint-plugin-import'
 
-const commonWarnNamingRules = [
-  // var,letはstrictCamelCaseを使用
+// ... and all your other imports
+export default tseslint.config(
   {
-    selector: 'variable',
-    format: ['strictCamelCase'],
-  },
-  // constはstrictCamelCase,StrictPascalCase,UPPER_CASEを使用
-  {
-    selector: 'variable',
-    modifiers: ['const'],
-    format: ['strictCamelCase', 'StrictPascalCase', 'UPPER_CASE'],
-  },
-  // 関数はstrictCamelCaseを使用、先頭のアンダースコア許容
-  {
-    selector: 'function',
-    format: ['strictCamelCase'],
-    leadingUnderscore: 'allow',
-  },
-  // get,setはstrictCamelCaseを使用
-  {
-    selector: 'accessor',
-    format: ['strictCamelCase'],
-  },
-  // 関数パラメーターはstrictCamelCaseを使用、先頭のアンダースコア許容
-  {
-    selector: 'parameter',
-    format: ['strictCamelCase'],
-    leadingUnderscore: 'allow',
-  },
-  // typeはStrictPascalCase,UPPER_CASEを使用
-  {
-    selector: 'typeAlias',
-    format: ['StrictPascalCase', 'UPPER_CASE'],
-  },
-  // classはStrictPascalCaseを使用
-  {
-    selector: 'class',
-    format: ['StrictPascalCase'],
-  },
-  // interfaceはStrictPascalCaseを使用
-  {
-    selector: 'interface',
-    format: ['StrictPascalCase'],
-  },
-]
-
-const __filename = fileURLToPath(import.meta.url)
-const __dirname = path.dirname(__filename)
-const compat = new FlatCompat({
-  baseDirectory: __dirname,
-  recommendedConfig: js.configs.recommended,
-  allConfig: js.configs.all,
-})
-
-export default [
-  {
-    ignores: ['**/.eslintrc.js', 'test', 'jest.config.ts'],
-  },
-  ...fixupConfigRules(
-    compat.extends(
-      'eslint:recommended',
-      'plugin:@typescript-eslint/recommended',
-      'plugin:prettier/recommended',
-      'plugin:jsdoc/recommended-typescript-error',
-      'plugin:@typescript-eslint/stylistic',
-      'plugin:import/recommended',
-      'plugin:import/typescript',
-    ),
-  ),
-  {
+    files: ['./src/**/*.{mjs,ts,mts}'],
+    extends: [
+      js.configs.recommended,
+      importPlugin.flatConfigs.recommended,
+      ...tseslint.configs.strict,
+      ...tseslint.configs.strictTypeChecked,
+      ...tseslint.configs.stylistic,
+      ...tseslint.configs.stylisticTypeChecked,
+      eslintNestJs.configs.flatRecommended, // This is the recommended ruleset for this plugin
+      prettier,
+    ],
     plugins: {
-      '@typescript-eslint': fixupPluginRules(typescriptEslintEslintPlugin),
-      import: fixupPluginRules(_import),
       'unused-imports': unusedImports,
-      'check-file': checkFile,
     },
-
+    settings: {
+      'import/resolver': {
+        typescript: {},
+      },
+    },
+    rules: {
+      complexity: ['error', 10],
+      'max-depth': ['error', 2],
+      // TODO: 50にしたい
+      'max-lines': ['error', 70],
+      // TODO: 30にしたい
+      'max-lines-per-function': ['error', 30],
+      'max-params': ['error', 3],
+      '@typescript-eslint/unbound-method': 'off',
+      '@typescript-eslint/no-unused-vars': 'off',
+      '@typescript-eslint/no-extraneous-class': 'off', // This rule is not compatible with NestJS
+      'unused-imports/no-unused-imports': 'error',
+      'unused-imports/no-unused-vars': 'error',
+      'import/order': [
+        'error',
+        {
+          groups: ['builtin', 'external', 'sibling', 'index', 'object', 'type'],
+          alphabetize: { order: 'asc', caseInsensitive: false },
+          'newlines-between': 'always',
+        },
+      ],
+      '@darraghor/nestjs-typed/controllers-should-supply-api-tags': 'off',
+      '@darraghor/nestjs-typed/api-method-should-specify-api-response': 'off',
+      '@darraghor/nestjs-typed/injectable-should-be-provided': 'off',
+    },
     languageOptions: {
       globals: {
         ...globals.node,
         ...globals.jest,
       },
-
-      parser: tsParser,
-      ecmaVersion: 5,
+      ecmaVersion: 2022,
       sourceType: 'module',
-
       parserOptions: {
-        project: 'tsconfig.json',
-        tsconfigRootDir: './',
+        projectService: true,
+        tsconfigRootDir: import.meta.dirname,
       },
     },
-
+  },
+  {
+    files: ['src/**/*.test.ts'],
     settings: {
-      'import/resolver': 'typescript',
+      vitest: {
+        typecheck: true,
+      },
     },
-
+    languageOptions: {
+      globals: {
+        ...vitest.environments.env.globals,
+      },
+    },
+    plugins: {
+      vitest,
+    },
     rules: {
-      '@typescript-eslint/interface-name-prefix': 'off',
-      '@typescript-eslint/explicit-function-return-type': 'error',
-      '@typescript-eslint/explicit-module-boundary-types': 'error',
-      '@typescript-eslint/no-explicit-any': 'off',
-      '@typescript-eslint/naming-convention': [
-        'error',
-        ...commonWarnNamingRules,
-      ],
-      '@typescript-eslint/no-import-type-side-effects': 'error',
-      '@typescript-eslint/no-non-null-assertion': 'error',
-      '@typescript-eslint/no-non-null-asserted-nullish-coalescing': 'error',
-      '@typescript-eslint/no-require-imports': 'error',
-      '@typescript-eslint/no-unnecessary-boolean-literal-compare': 'error',
-      '@typescript-eslint/no-unnecessary-condition': 'error',
-      '@typescript-eslint/no-unsafe-unary-minus': 'error',
-      '@typescript-eslint/no-useless-empty-export': 'error',
-      '@typescript-eslint/no-unnecessary-template-expression': 'error',
-      '@typescript-eslint/prefer-includes': 'error',
-      '@typescript-eslint/require-array-sort-compare': 'error',
-      '@typescript-eslint/sort-type-constituents': 'error',
-      '@typescript-eslint/strict-boolean-expressions': 'error',
-      '@typescript-eslint/switch-exhaustiveness-check': 'error',
-      'no-console': 'error',
-      'no-template-curly-in-string': 'error',
-      'no-unmodified-loop-condition': 'error',
-      'no-unreachable-loop': 'error',
-      'no-use-before-define': 'error',
-      'arrow-body-style': ['error', 'always'],
-      camelcase: 'error',
-      'array-callback-return': 'error',
-      'block-scoped-var': 'error',
-      complexity: ['error', 10],
-      'consistent-return': 'error',
-      curly: 'error',
-      'dot-notation': 'error',
-      'max-lines': ['error', 200],
-      'max-lines-per-function': ['error', 40],
-      'max-params': ['error', 3],
-      'no-magic-numbers': 'error',
-      'no-multi-assign': 'error',
-      'no-multi-str': 'error',
-      'no-nested-ternary': 'error',
-      'no-new': 'error',
-      'no-new-func': 'error',
-      'no-new-wrappers': 'error',
-      'no-object-constructor': 'error',
-      'no-param-reassign': 'error',
-      'no-return-assign': 'error',
-      'no-throw-literal': 'error',
-      'object-shorthand': 'error',
-      'prefer-const': 'error',
-      'prefer-exponentiation-operator': 'error',
-      'prefer-numeric-literals': 'error',
-      'prefer-object-spread': 'error',
-      'prefer-spread': 'error',
-      'prefer-template': 'error',
-      'no-var': 'error',
-      'no-else-return': 'error',
-
-      'import/order': [
+      ...vitest.configs.all.rules, // you can also use vitest.configs.all.rules to enable all rules
+      complexity: 'off',
+      'max-depth': 'off',
+      // TODO: 50にしたい
+      'max-lines': 'off',
+      // TODO: 30にしたい
+      'max-lines-per-function': 'off',
+      'max-params': 'off',
+      'vitest/consistent-test-it': ['error', { fn: 'test' }],
+      'vitest/no-hooks': [
         'error',
         {
-          groups: [
-            'builtin',
-            'external',
-            'internal',
-            'parent',
-            'sibling',
-            'index',
-          ],
-          'newlines-between': 'always',
-
-          alphabetize: {
-            order: 'asc',
-            caseInsensitive: true,
-          },
+          allow: ['beforeEach'],
         },
       ],
-
-      'unused-imports/no-unused-imports': 'error',
-
-      'check-file/folder-match-with-fex': [
-        'error',
-        {
-          '*.test.{js,jsx,ts,tsx}': '**/tests/',
-          '*.d.ts': '**/types/',
-        },
-      ],
-
-      'jsdoc/check-param-names': [
-        'error',
-        {
-          checkDestructured: false,
-        },
-      ],
-
-      'jsdoc/check-tag-names': [
-        'error',
-        {
-          definedTags: ['remarks', 'typeParam'],
-        },
-      ],
-
-      'jsdoc/require-description': [
-        'error',
-        {
-          contexts: [
-            'ArrowFunctionExpression',
-            'ClassDeclaration',
-            'ClassExpression',
-            'FunctionDeclaration',
-            'FunctionExpression',
-            'MethodDefinition',
-            'PropertyDefinition',
-            'VariableDeclaration',
-            'TSInterfaceDeclaration',
-            'TSTypeAliasDeclaration',
-            'TSPropertySignature',
-            'TSMethodSignature',
-          ],
-        },
-      ],
-
-      'jsdoc/require-hyphen-before-param-description': ['error', 'always'],
-
-      'jsdoc/require-jsdoc': [
-        'error',
-        {
-          publicOnly: true,
-
-          require: {
-            ArrowFunctionExpression: true,
-            ClassDeclaration: true,
-            ClassExpression: true,
-            FunctionDeclaration: true,
-            FunctionExpression: true,
-            MethodDefinition: true,
-          },
-
-          contexts: [
-            'PropertyDefinition',
-            'VariableDeclaration',
-            'TSInterfaceDeclaration',
-            'TSTypeAliasDeclaration',
-            'TSPropertySignature',
-            'TSMethodSignature',
-          ],
-
-          checkConstructors: false,
-        },
-      ],
-
-      'jsdoc/require-param': [
-        'error',
-        {
-          checkDestructuredRoots: false,
-        },
-      ],
-
-      'jsdoc/tag-lines': [
-        'error',
-        'always',
-        {
-          startLines: 1,
-          applyToEndTag: false,
-        },
-      ],
-
-      'jsdoc/sort-tags': [
-        'error',
-        {
-          reportIntraTagGroupSpacing: false,
-        },
-      ],
-
-      'jsdoc/require-returns': ['off'],
+      'max-lines-per-function': ['error', 100],
+      'max-params': ['error', 4],
+      ' @typescript-eslint/unbound-method': 'off',
     },
   },
-]
+)

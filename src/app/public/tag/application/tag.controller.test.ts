@@ -2,17 +2,18 @@ import { HttpModule } from '@nestjs/axios'
 import { Test, TestingModule } from '@nestjs/testing'
 import { beforeEach, describe, expect, test, vi } from 'vitest'
 
-import { TagData } from 'src/types/tagData'
-
-import { TagRepositoryImpl } from '../infrastructure/tag.repositoryImpl'
-
-import { TagRepository } from './tag.repository'
-import { TagService } from './tag.service'
+import { TagController } from '@/public/tag/application/tag.controller'
+import { TagRepository } from '@/public/tag/domain/tag.repository'
+import { TagService } from '@/public/tag/domain/tag.service'
+import { TagRepositoryImpl } from '@/public/tag/infrastructure/tag.repositoryImpl'
+import { TagData } from '@/types/tagData'
 
 const testCase = async (
+  controller: TagController,
   service: TagService,
-  repository: TagRepository,
-): Promise<void> => {
+): Promise<boolean> => {
+  expect.hasAssertions()
+
   const mockData: TagData[] = [
     {
       id: 'Python',
@@ -33,32 +34,35 @@ const testCase = async (
       itemsCount: 42534,
     },
   ]
-  vi.spyOn(repository, 'getTags').mockImplementationOnce(() => {
-    return Promise.resolve(mockData)
-  })
-  const result = await service.getTags()
-  expect(result).toEqual(mockData)
-  expect(repository.getTags).toHaveBeenCalled()
+  vi.spyOn(service, 'getTags').mockResolvedValueOnce(mockData)
+  const result = await controller.getTags()
+
+  expect(result).toStrictEqual(mockData)
+  expect(service.getTags).toHaveBeenCalledWith()
+
+  return true
 }
 
-describe('TagService', () => {
+describe('tag_controller', () => {
+  let controller: TagController
   let service: TagService
-  let repository: TagRepository
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       imports: [HttpModule],
+      controllers: [TagController],
       providers: [
         TagService,
         { provide: TagRepository, useClass: TagRepositoryImpl },
       ],
     }).compile()
 
+    controller = module.get<TagController>(TagController)
     service = module.get<TagService>(TagService)
-    repository = module.get<TagRepository>(TagRepository)
   })
 
   test('should be defined', async () => {
-    expect(testCase(service, repository)).toBeTruthy()
+    expect.hasAssertions()
+    await expect(testCase(controller, service)).resolves.toBe(true)
   })
 })

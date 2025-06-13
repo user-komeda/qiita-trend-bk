@@ -1,4 +1,4 @@
-import { ItemsData } from 'src/types/itemsData'
+import { ItemsData } from '@/types/itemsData'
 
 /**
  *ItemsRepository

@@ -4,13 +4,10 @@ import { AxiosResponse } from 'axios'
 import { of } from 'rxjs/internal/observable/of'
 import { beforeEach, describe, expect, test, vi } from 'vitest'
 
-import { ItemsData } from 'src/types/itemsData'
+import { ItemsRepository } from '@/public/items/domain/items.repository'
+import { ItemsRepositoryImpl } from '@/public/items/infrastructure/items.repositoryImpl'
+import { ItemsData } from '@/types/itemsData'
 
-import { ItemsRepository } from '../domain/items.repository'
-
-import { ItemsRepositoryImpl } from './items.repositoryImpl'
-
-/* eslint-disable  camelcase */
 const httpServiceMockData = [
   {
     rendered_body:
@@ -19,7 +16,14 @@ const httpServiceMockData = [
     coediting: false,
     comments_count: 0,
     created_at: '2020-01-31T23:59:59+09:00',
-    group: null,
+    group: {
+      created_at: '2000-01-01T00:00:00+00:00',
+      description: 'This group is for developers.',
+      name: 'Dev',
+      private: false,
+      updated_at: '2000-01-01T00:00:00+00:00',
+      url_name: 'dev',
+    },
     id: 'dbd83151ce9d74b016e8',
     likes_count: 2,
     private: false,
@@ -78,7 +82,14 @@ const httpServiceMockData = [
     coediting: false,
     comments_count: 0,
     created_at: '2020-01-31T23:56:36+09:00',
-    group: null,
+    group: {
+      created_at: '2000-01-01T00:00:00+00:00',
+      description: 'This group is for developers.',
+      name: 'Dev',
+      private: false,
+      updated_at: '2000-01-01T00:00:00+00:00',
+      url_name: 'dev',
+    },
     id: '7244eb5869024651548a',
     likes_count: 5,
     private: false,
@@ -127,7 +138,6 @@ const httpServiceMockData = [
     slide: false,
   },
 ]
-/* eslint-enable  camelcase */
 
 const responseData: ItemsData[] = [
   {
@@ -170,24 +180,36 @@ describe('itemsRepository', () => {
   })
 
   test('should be defined', async () => {
+    expect.hasAssertions()
+
+    const startDate = '2021-01-01'
+    const endDate = '2021-01-31'
     vi.spyOn(httpService, 'get').mockImplementationOnce(() => {
       return of({
         data: httpServiceMockData,
       } as AxiosResponse)
     })
-    const result = await repository.getItems('2021-01-01', '2021-01-31')
-    expect(httpService.get).toHaveBeenCalled()
-    expect(result).toEqual(responseData)
+    const result = await repository.getItems(startDate, endDate)
+
+    expect(httpService.get).toHaveBeenCalledWith(
+      `https://qiita.com/api/v2/items?sort=stock&per_page=100&query=created%3A%3E%3D${startDate}+created%3A%3C%3D${endDate}`,
+    )
+    expect(result).toStrictEqual(responseData)
   })
 
-  test('should be defined', async () => {
+  test('should be defined2', async () => {
+    expect.hasAssertions()
+
     vi.spyOn(httpService, 'get').mockImplementationOnce(() => {
       return of({
         data: httpServiceMockData,
       } as AxiosResponse)
     })
     const result = await repository.getItems('', '')
-    expect(httpService.get).toHaveBeenCalled()
-    expect(result).toEqual(responseData)
+
+    expect(httpService.get).toHaveBeenCalledWith(
+      'https://qiita.com/api/v2/items?sort=stock&per_page=100',
+    )
+    expect(result).toStrictEqual(responseData)
   })
 })

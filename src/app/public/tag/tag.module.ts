@@ -1,10 +1,10 @@
 import { HttpModule } from '@nestjs/axios'
 import { Module } from '@nestjs/common'
 
-import { TagController } from './application/tag.controller'
-import { TagRepository } from './domain/tag.repository'
-import { TagService } from './domain/tag.service'
-import { TagRepositoryImpl } from './infrastructure/tag.repositoryImpl'
+import { TagController } from '@/public/tag/application/tag.controller'
+import { TagRepository } from '@/public/tag/domain/tag.repository'
+import { TagService } from '@/public/tag/domain/tag.service'
+import { TagRepositoryImpl } from '@/public/tag/infrastructure/tag.repositoryImpl'
 
 /**
  * TagModule

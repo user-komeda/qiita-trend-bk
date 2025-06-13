@@ -4,13 +4,10 @@ import { AxiosResponse } from 'axios'
 import { of } from 'rxjs/internal/observable/of'
 import { beforeEach, describe, expect, test, vi } from 'vitest'
 
-import { ItemsData } from 'src/types/itemsData'
+import { TagsItemRepository } from '@/public/tags-item/domain/tagsItem.repository'
+import { TagsItemRepositoryImpl } from '@/public/tags-item/infrastructure/tagsItem.repositoryImpl'
+import { ItemsData } from '@/types/itemsData'
 
-import { TagsItemRepository } from '../domain/tagsItem.repository'
-
-import { TagsItemRepositoryImpl } from './tagsItem.repositoryImpl'
-
-/* eslint-disable  camelcase */
 const httpServiceMockData = [
   {
     rendered_body:
@@ -19,7 +16,14 @@ const httpServiceMockData = [
     coediting: false,
     comments_count: 0,
     created_at: '2020-01-31T23:59:59+09:00',
-    group: null,
+    group: {
+      created_at: '2000-01-01T00:00:00+00:00',
+      description: 'This group is for developers.',
+      name: 'Dev',
+      private: false,
+      updated_at: '2000-01-01T00:00:00+00:00',
+      url_name: 'dev',
+    },
     id: 'dbd83151ce9d74b016e8',
     likes_count: 2,
     private: false,
@@ -82,7 +86,14 @@ const httpServiceMockData = [
     coediting: false,
     comments_count: 0,
     created_at: '2020-01-31T23:56:36+09:00',
-    group: null,
+    group: {
+      created_at: '2000-01-01T00:00:00+00:00',
+      description: 'This group is for developers.',
+      name: 'Dev',
+      private: false,
+      updated_at: '2000-01-01T00:00:00+00:00',
+      url_name: 'dev',
+    },
     id: '7244eb5869024651548a',
     likes_count: 5,
     private: false,
@@ -135,7 +146,6 @@ const httpServiceMockData = [
     slide: false,
   },
 ]
-/* eslint-enable  camelcase */
 
 const responseData: ItemsData[] = [
   {
@@ -180,15 +190,19 @@ describe('tagsItemRepository', () => {
   })
 
   test('should be defined', async () => {
-    const requestData = 'wifi'
+    expect.hasAssertions()
 
+    const requestData = 'wifi'
     vi.spyOn(httpService, 'get').mockImplementationOnce(() => {
       return of({
         data: httpServiceMockData,
       } as AxiosResponse)
     })
     const result = await repository.getItemsFromTag(requestData)
-    expect(httpService.get).toHaveBeenCalled()
-    expect(result).toEqual(responseData)
+
+    expect(httpService.get).toHaveBeenCalledWith(
+      `https://qiita.com/api/v2/items?per_page=100&query=tags:${requestData}`,
+    )
+    expect(result).toStrictEqual(responseData)
   })
 })

@@ -1,7 +1,7 @@
 import { Controller, Get, Param } from '@nestjs/common'
 
-import { ItemsId } from '../../../form/itemsId/itemsId'
-import { CommentService } from '../domain/comment.service'
+import { ItemsId } from '@/form/itemsId/itemsId'
+import { CommentService } from '@/public/comment/domain/comment.service'
 
 /**
  *CommentController

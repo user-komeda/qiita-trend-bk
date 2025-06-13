@@ -4,10 +4,8 @@ import { AxiosResponse } from 'axios'
 import { of } from 'rxjs/internal/observable/of'
 import { beforeEach, describe, expect, test, vi } from 'vitest'
 
-import { ItemsDetailRepository } from '../domain/itemsDetail.repository'
-
-import { ItemsDetailRepositoryImpl } from './itemsDetail.repositoryImpl'
-/* eslint-disable  camelcase */
+import { ItemsDetailRepository } from '@/public/itemsdetail/domain/itemsDetail.repository'
+import { ItemsDetailRepositoryImpl } from '@/public/itemsdetail/infrastructure/itemsDetail.repositoryImpl'
 
 const httpServiceMockData = {
   rendered_body:
@@ -16,7 +14,14 @@ const httpServiceMockData = {
   coediting: false,
   comments_count: 0,
   created_at: '2020-01-31T23:59:59+09:00',
-  group: null,
+  group: {
+    created_at: '2000-01-01T00:00:00+00:00',
+    description: 'This group is for developers.',
+    name: 'Dev',
+    private: false,
+    updated_at: '2000-01-01T00:00:00+00:00',
+    url_name: 'dev',
+  },
   id: 'dbd83151ce9d74b016e8',
   likes_count: 2,
   private: false,
@@ -68,12 +73,13 @@ const httpServiceMockData = {
   organization_url_name: 'ozvision',
   slide: false,
 }
-/* eslint-enable  camelcase */
 
 const testCase = async (
   httpService: HttpService,
   repository: ItemsDetailRepository,
-): Promise<void> => {
+): Promise<boolean> => {
+  expect.hasAssertions()
+
   const requestData = 'dbd83151ce9d74b016e8'
   const responseData = {
     body: '株式会社オズビジョンの @terra_yucco です。\n2020/01 現在、オズビジョン 6 年目。内部ではちらほら配置換えもありつつも、なんだかんだでこの 6 年の大半はメインプロダクト「ハピタス」を見ています。\n\n# 前置き\n現在、品質向上のために仕様統括＋品質管理というロールを担っております。\n主な役割は、着手が決まった案件について、以下の項目のそれぞれについてレビューの必要性があるかを判断し、必要となったものはレビューをすること。もちろん担当チームは自分たちでも確認をしますが、仕様統括という形で全体のつながりも意識しながら追加で確認しています。\n\n- 要件定義\n- テスト設計\n- リリース・反映手順、動作確認手順\n- 後日確認手順\n- 切り戻し手順\n\nansible のコードや、aws 関連のスクリプトの場合はコードを見たりもしますが、基本はプロダクトのコードは見ません。\n\n# なぜこんなロールがあるのか\n一時期、リリース前後に不具合が頻発することがあったため。また、検出した不具合は、単純なテスト忘れや確認漏れが多く、誰かがチェックしていれば防げたんじゃないかと思われるようなものも多かったため。\n\n# どんな点に気を付けて見ているのか\n## 仕様統括として\n### 要件定義\n\n- これまでの機能との相反・不整合がないか\n    - ユーザステータスの遷移\n    - 既存データとのドメインチェック\n\n### テスト設計\n\n- 動作テストにおいて、提供機能のハッピーパスがテストされているか\n- 機能的に見落としている、重要な組み合わせパターンはないか\n- 事業的に意味を持つ、入力値のバリエーションはないか、ある場合はテストパターンに含まれているか\n\n### リリース・反映手順、動作確認手順\n\n- 複数機能をリリースする場合、前後関係は正しく保たれているか\n- 機能にダウンタイムが発生する場合、調整はされているか、メンテナンスが必要な場合は調整済か\n- 動作確認手順は、実際にリリースする変更部分の動作を確認できるものとなっているか\n\n### 全般\n\n- 過去に出た不具合と類似の事象が発生しそうな場所はないか\n\n## 品質管理として\n\n若手のメンバーも多いので、かなり一般的な見方をしています。これは主にテスト設計の確認に適用しています。\n本来は DB 設計やセキュリティ観点なども要件定義で見たほうが良いのですが、これは現状では各チームに移管しています。\n\n### 基本\n\n- 誰が見ても実施する内容がわかるテスト設計となっているか\n- 期待するインプットが明確か、全て洗い出されているか\n- 期待する想定の結果が明示されているか　※「正常であること」などは想定結果ではない\n\n### 単体観点\n\n- 各ドメインの値、境界値\n- カバレッジ\n\n### 結合観点\n\n- 状態遷移を伴う場合には、実際に遷移させるテストを行う設計になっているか\n- 既存の機能に影響する場合、その機能全体の通しのテストも行う設計になっているか\n\n### 全体\n\n- 必要なテストが、コードレベルの UT などとマニュアルテストを合わせて網羅されているか\n\n# 効果\n\n普段の業務にプラスオンして何名かのメンバーで分担していますが、レビューを間に挟んで別の人の目を入れたということはいい方に働いており、このレビューをしっかりやった案件ほど不具合が出ないという結果にはなっています。\nただし当たり前ながら QCD の CD を少し犠牲にして Q を上げている結果にはなっているので、次はここに何らかの手を打っていきたいと考えています。\n\n# これから\n\n既に一回実施していますが、このレビューを通して得られた知見を社内にシェアし、将来的には特別なレビューを挟まなくても各チームで品質向上に取り組んでいければと考えています。\n皆さんのレビュー観点などももしあればぜひ教えてください。\n',
@@ -93,8 +99,13 @@ const testCase = async (
     } as AxiosResponse)
   })
   const result = await repository.getDetailItems(requestData)
-  expect(httpService.get).toHaveBeenCalled()
+
+  expect(httpService.get).toHaveBeenCalledWith(
+    `https://qiita.com/api/v2/items/${requestData}`,
+  )
   expect(result).toStrictEqual(responseData)
+
+  return true
 }
 
 describe('itemsDetailRepository', () => {
@@ -113,6 +124,7 @@ describe('itemsDetailRepository', () => {
   })
 
   test('should be defined', async () => {
-    expect(testCase(httpService, repository)).toBeTruthy()
+    expect.hasAssertions()
+    await expect(testCase(httpService, repository)).resolves.toBe(true)
   })
 })

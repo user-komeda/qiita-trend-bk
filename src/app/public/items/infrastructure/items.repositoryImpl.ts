@@ -1,10 +1,11 @@
 import { HttpService } from '@nestjs/axios'
 import { Injectable } from '@nestjs/common'
 import { lastValueFrom, map } from 'rxjs'
+import * as v from 'valibot' // 1.31 kB
 
-import { ItemsData } from 'src/types/itemsData'
-
-import { ItemsRepository } from '../domain/items.repository'
+import { ItemsRepository } from '@/public/items/domain/items.repository'
+import { ItemsSchemaType, schema } from '@/public/items/schema'
+import { ItemsData } from '@/types/itemsData'
 
 /**
  *ItemsRepositoryImpl
@@ -25,7 +26,8 @@ export class ItemsRepositoryImpl implements ItemsRepository {
     return await lastValueFrom(
       this.httpService.get(this.buildUrl(startDate, endDate)).pipe(
         map((response) => {
-          return this.convertResponseData(response.data)
+          const parsedData = v.parse(schema, response.data)
+          return this.convertResponseData(parsedData)
         }),
       ),
     )
@@ -38,7 +40,7 @@ export class ItemsRepositoryImpl implements ItemsRepository {
     return `https://qiita.com/api/v2/items?sort=stock&per_page=100`
   }
 
-  private convertResponseData(dataList: any): ItemsData[] {
+  private convertResponseData(dataList: ItemsSchemaType): ItemsData[] {
     return dataList.map((data) => {
       const tag = data.tags.map((tag) => {
         return tag.name

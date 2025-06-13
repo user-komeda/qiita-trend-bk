@@ -1,10 +1,10 @@
 import { HttpModule } from '@nestjs/axios'
 import { Module } from '@nestjs/common'
 
-import { TagsItemController } from './application/tagsItem.controller'
-import { TagsItemRepository } from './domain/tagsItem.repository'
-import { TagsItemService } from './domain/tagsItem.service'
-import { TagsItemRepositoryImpl } from './infrastructure/tagsItem.repositoryImpl'
+import { TagsItemController } from '@/public/tags-item/application/tagsItem.controller'
+import { TagsItemRepository } from '@/public/tags-item/domain/tagsItem.repository'
+import { TagsItemService } from '@/public/tags-item/domain/tagsItem.service'
+import { TagsItemRepositoryImpl } from '@/public/tags-item/infrastructure/tagsItem.repositoryImpl'
 /**
  *TagsItemModule
  */

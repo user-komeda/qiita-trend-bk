@@ -1,14 +1,16 @@
 import { Test } from '@nestjs/testing'
 import { describe, expect, test } from 'vitest'
 
-import { CommentModule } from './comment/comment.module'
-import { ItemsModule } from './items/items.module'
-import { PublicModule } from './public.module'
-import { TagModule } from './tag/tag.module'
-import { TagsItemModule } from './tags-item/tagsItens.module'
+import { CommentModule } from '@/public/comment/comment.module'
+import { ItemsModule } from '@/public/items/items.module'
+import { PublicModule } from '@/public/public.module'
+import { TagModule } from '@/public/tag/tag.module'
+import { TagsItemModule } from '@/public/tags-item/tagsItens.module'
 
 describe('publicModule', () => {
   test('should compile the module', async () => {
+    expect.hasAssertions()
+
     const module = await Test.createTestingModule({
       imports: [PublicModule],
     }).compile()

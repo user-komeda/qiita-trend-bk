@@ -3,15 +3,14 @@ import { ValidationPipe } from '@nestjs/common/pipes/validation.pipe'
 import { Test, TestingModule } from '@nestjs/testing'
 import { beforeEach, describe, expect, test, vi } from 'vitest'
 
-import { ItemsData } from 'src/types/itemsData'
+import { ItemsController } from '@/public/items/application/items.controller'
+import { ItemsRepository } from '@/public/items/domain/items.repository'
+import { ItemsService } from '@/public/items/domain/items.service'
+import { ItemsRepositoryImpl } from '@/public/items/infrastructure/items.repositoryImpl'
+import { ItemsDetailRepository } from '@/public/itemsdetail/domain/itemsDetail.repository'
+import { ItemsDetailService } from '@/public/itemsdetail/domain/itemsDetail.service'
+import { ItemsData } from '@/types/itemsData'
 
-import { ItemsDetailRepository } from '../../itemsdetail/domain/itemsDetail.repository'
-import { ItemsDetailService } from '../../itemsdetail/domain/itemsDetail.service'
-import { ItemsRepository } from '../domain/items.repository'
-import { ItemsService } from '../domain/items.service'
-import { ItemsRepositoryImpl } from '../infrastructure/items.repositoryImpl'
-
-import { ItemsController } from './items.controller'
 const FIRST_MOCK_DATA_INDEX = 0
 
 const mockData: ItemsData[] = [
@@ -43,26 +42,36 @@ const mockData: ItemsData[] = [
 const testCase = async (
   itemsController: ItemsController,
   itemService: ItemsService,
-): Promise<void> => {
-  vi.spyOn(itemService, 'getItems').mockImplementationOnce(() => {
-    return Promise.resolve(mockData)
-  })
+): Promise<boolean> => {
+  expect.hasAssertions()
+
+  vi.spyOn(itemService, 'getItems').mockResolvedValueOnce(mockData)
   const result = await itemsController.getAllItems('2021-01-01', '2021-01-31')
-  expect(itemService.getItems).toHaveBeenCalled()
-  expect(result).toEqual(result)
+
+  expect(itemService.getItems).toHaveBeenCalledWith('2021-01-01', '2021-01-31')
+  expect(result).toStrictEqual(result)
+
+  return true
 }
 const testCase2 = async (
   itemsController: ItemsController,
   itemDetailService: ItemsDetailService,
-): Promise<void> => {
+): Promise<boolean> => {
+  expect.hasAssertions()
+
   const requestData = { itemsId: 'e37caf50776e00e733be' }
 
-  vi.spyOn(itemDetailService, 'getDetailItems').mockImplementationOnce(() => {
-    return Promise.resolve(mockData[FIRST_MOCK_DATA_INDEX])
-  })
+  vi.spyOn(itemDetailService, 'getDetailItems').mockResolvedValueOnce(
+    mockData[FIRST_MOCK_DATA_INDEX],
+  )
   const result = await itemsController.getItem(requestData)
-  expect(itemDetailService.getDetailItems).toHaveBeenCalled()
-  expect(result).toEqual(result)
+
+  expect(itemDetailService.getDetailItems).toHaveBeenCalledWith(
+    requestData.itemsId,
+  )
+  expect(result).toStrictEqual(result)
+
+  return true
 }
 
 describe('itemController', () => {
@@ -91,9 +100,14 @@ describe('itemController', () => {
   })
 
   test('should return "Hello World!"', async () => {
-    expect(testCase(itemsController, itemService)).toBeTruthy()
+    expect.hasAssertions()
+    await expect(testCase(itemsController, itemService)).resolves.toBe(true)
   })
+
   test('2should return "Hello World!"', async () => {
-    expect(testCase2(itemsController, itemDetailService)).toBeTruthy()
+    expect.hasAssertions()
+    await expect(testCase2(itemsController, itemDetailService)).resolves.toBe(
+      true,
+    )
   })
 })

@@ -1,7 +1,7 @@
 import { Body, Controller, Post, Res } from '@nestjs/common'
 import { Response } from 'express'
 
-import { LoginService } from '../domain/login.service'
+import { LoginService } from '@/public/login/domain/login.service'
 
 /**
  *ItemsController
@@ -20,21 +20,21 @@ export class LoginController {
    * @returns - Response
    */
   @Post()
-  async login(
-    @Body() body: string,
-    @Res() res: Response,
-  ): Promise<Response<any, Record<string, any>>> {
+  async login(@Body() body: string, @Res() res: Response): Promise<Response> {
     const result = await this.loginService.login(body)
-    return res
-      .status(result.status)
-      .cookie('token_value', result.data.token, {
-        signed: true,
-        httpOnly: true,
-        path: '/',
-        domain: 'localhost',
-        secure: false,
-        sameSite: 'lax',
-      })
-      .json(result.data)
+    return (
+      res
+        .status(result.status)
+        //  eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+        .cookie('token_value', result.data.token, {
+          signed: true,
+          httpOnly: true,
+          path: '/',
+          domain: 'localhost',
+          secure: false,
+          sameSite: 'lax',
+        })
+        .json(result.data)
+    )
   }
 }
