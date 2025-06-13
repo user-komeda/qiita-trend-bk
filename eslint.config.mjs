@@ -30,6 +30,13 @@ export default tseslint.config(
       },
     },
     rules: {
+      complexity: ['error', 10],
+      'max-depth': ['error', 2],
+      // TODO: 50にしたい
+      'max-lines': ['error', 70],
+      // TODO: 30にしたい
+      'max-lines-per-function': ['error', 30],
+      'max-params': ['error', 3],
       '@typescript-eslint/unbound-method': 'off',
       '@typescript-eslint/no-unused-vars': 'off',
       '@typescript-eslint/no-extraneous-class': 'off', // This rule is not compatible with NestJS
@@ -43,6 +50,9 @@ export default tseslint.config(
           'newlines-between': 'always',
         },
       ],
+      '@darraghor/nestjs-typed/controllers-should-supply-api-tags': 'off',
+      '@darraghor/nestjs-typed/api-method-should-specify-api-response': 'off',
+      '@darraghor/nestjs-typed/injectable-should-be-provided': 'off',
     },
     languageOptions: {
       globals: {
@@ -74,6 +84,13 @@ export default tseslint.config(
     },
     rules: {
       ...vitest.configs.all.rules, // you can also use vitest.configs.all.rules to enable all rules
+      complexity: 'off',
+      'max-depth': 'off',
+      // TODO: 50にしたい
+      'max-lines': 'off',
+      // TODO: 30にしたい
+      'max-lines-per-function': 'off',
+      'max-params': 'off',
       'vitest/consistent-test-it': ['error', { fn: 'test' }],
       'vitest/no-hooks': [
         'error',

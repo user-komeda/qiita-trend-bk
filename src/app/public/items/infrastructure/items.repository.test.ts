@@ -16,7 +16,14 @@ const httpServiceMockData = [
     coediting: false,
     comments_count: 0,
     created_at: '2020-01-31T23:59:59+09:00',
-    group: null,
+    group: {
+      created_at: '2000-01-01T00:00:00+00:00',
+      description: 'This group is for developers.',
+      name: 'Dev',
+      private: false,
+      updated_at: '2000-01-01T00:00:00+00:00',
+      url_name: 'dev',
+    },
     id: 'dbd83151ce9d74b016e8',
     likes_count: 2,
     private: false,
@@ -75,7 +82,14 @@ const httpServiceMockData = [
     coediting: false,
     comments_count: 0,
     created_at: '2020-01-31T23:56:36+09:00',
-    group: null,
+    group: {
+      created_at: '2000-01-01T00:00:00+00:00',
+      description: 'This group is for developers.',
+      name: 'Dev',
+      private: false,
+      updated_at: '2000-01-01T00:00:00+00:00',
+      url_name: 'dev',
+    },
     id: '7244eb5869024651548a',
     likes_count: 5,
     private: false,
@@ -183,7 +197,7 @@ describe('itemsRepository', () => {
     expect(result).toStrictEqual(responseData)
   })
 
-  test('should be defined', async () => {
+  test('should be defined2', async () => {
     expect.hasAssertions()
 
     vi.spyOn(httpService, 'get').mockImplementationOnce(() => {

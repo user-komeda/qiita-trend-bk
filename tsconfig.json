@@ -24,6 +24,7 @@
       "@/form/*": ["app/form/*"],
       "@/public/*": ["app/public/*"],
       "@/utils/*": ["app/utils/*"],
+      "@/schema/*": ["app/schema/*"],
       "@/types/*": ["types/*"],
       "@/const": ["const"]
     }

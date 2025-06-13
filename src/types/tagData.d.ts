@@ -9,7 +9,7 @@ export interface TagData {
   /**
    *iconUrl
    */
-  iconUrl: string
+  iconUrl: string | null
 
   /**
    *items_count
