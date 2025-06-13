@@ -2,7 +2,7 @@ import { HttpService } from '@nestjs/axios'
 import { Injectable } from '@nestjs/common'
 import { lastValueFrom, map } from 'rxjs'
 
-import { CommentRepository } from '../domain/comment.repository'
+import { CommentRepository } from '@/public/comment/domain/comment.repository'
 
 /**
  *CommentRepositoryImpl

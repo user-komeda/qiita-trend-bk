@@ -3,14 +3,13 @@ import { plainToInstance } from 'class-transformer'
 import { ValidationOptions, validate } from 'class-validator'
 import { describe, expect, test } from 'vitest'
 
-import { CURRENT_VALIDATION_ERROR } from '../../const'
-import { ItemsId } from '../form/itemsId/itemsId'
-
+import { CURRENT_VALIDATION_ERROR } from '@/const'
+import { ItemsId } from '@/form/itemsId/itemsId'
 import {
   getErrorForCheckIsEmpty,
   getErrorForCheckLength,
   getErrorForCheckMather,
-} from './getValidationErrorMessage'
+} from '@/utils/getValidationErrorMessage'
 
 const testCase1 = async (option: ValidationOptions): Promise<void> => {
   const itemsId: ItemsId = plainToInstance(ItemsId, {

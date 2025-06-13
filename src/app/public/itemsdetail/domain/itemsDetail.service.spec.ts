@@ -2,12 +2,10 @@ import { HttpModule } from '@nestjs/axios'
 import { Test, TestingModule } from '@nestjs/testing'
 import { beforeEach, describe, expect, test, vi } from 'vitest'
 
-import { ItemsData } from 'src/types/itemsData'
-
-import { ItemsDetailRepositoryImpl } from '../infrastructure/itemsDetail.repositoryImpl'
-
-import { ItemsDetailRepository } from './itemsDetail.repository'
-import { ItemsDetailService } from './itemsDetail.service'
+import { ItemsData } from '@/types/itemsData'
+import { ItemsDetailRepositoryImpl } from '@/public/itemsdetail/infrastructure/itemsDetail.repositoryImpl'
+import { ItemsDetailRepository } from '@/public/itemsdetail/domain/itemsDetail.repository'
+import { ItemsDetailService } from '@/public/itemsdetail/domain/itemsDetail.service'
 
 const testCase = async (
   itemsDetailRepository: ItemsDetailRepository,

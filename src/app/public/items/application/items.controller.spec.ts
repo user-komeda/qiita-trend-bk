@@ -3,15 +3,14 @@ import { ValidationPipe } from '@nestjs/common/pipes/validation.pipe'
 import { Test, TestingModule } from '@nestjs/testing'
 import { beforeEach, describe, expect, test, vi } from 'vitest'
 
-import { ItemsData } from 'src/types/itemsData'
+import { ItemsData } from '@/types/itemsData'
+import { ItemsDetailRepository } from '@/public/itemsdetail/domain/itemsDetail.repository'
+import { ItemsDetailService } from '@/public/itemsdetail/domain/itemsDetail.service'
+import { ItemsRepository } from '@/public/items/domain/items.repository'
+import { ItemsService } from '@/public/items/domain/items.service'
+import { ItemsRepositoryImpl } from '@/public/items/infrastructure/items.repositoryImpl'
+import { ItemsController } from '@/public/items/application/items.controller'
 
-import { ItemsDetailRepository } from '../../itemsdetail/domain/itemsDetail.repository'
-import { ItemsDetailService } from '../../itemsdetail/domain/itemsDetail.service'
-import { ItemsRepository } from '../domain/items.repository'
-import { ItemsService } from '../domain/items.service'
-import { ItemsRepositoryImpl } from '../infrastructure/items.repositoryImpl'
-
-import { ItemsController } from './items.controller'
 const FIRST_MOCK_DATA_INDEX = 0
 
 const mockData: ItemsData[] = [

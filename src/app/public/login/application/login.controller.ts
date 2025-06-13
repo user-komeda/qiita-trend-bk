@@ -1,7 +1,7 @@
 import { Body, Controller, Post, Res } from '@nestjs/common'
 import { Response } from 'express'
 
-import { LoginService } from '../domain/login.service'
+import { LoginService } from '@/public/login/domain/login.service'
 
 /**
  *ItemsController

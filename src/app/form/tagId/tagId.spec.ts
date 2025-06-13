@@ -3,10 +3,9 @@ import { plainToInstance } from 'class-transformer'
 import { ValidationOptions, validate } from 'class-validator'
 import { describe, test, expect } from 'vitest'
 
-import { CURRENT_VALIDATION_ERROR, ZERO } from '../../../const'
-import { getErrorForCheckIsEmpty } from '../../utils/getValidationErrorMessage'
-
-import { TagId } from './tagId'
+import { CURRENT_VALIDATION_ERROR, ZERO } from '@/const'
+import { getErrorForCheckIsEmpty } from '@/utils/getValidationErrorMessage'
+import { TagId } from '@/form/tagId/tagId'
 
 const testCase1 = async (option: ValidationOptions): Promise<void> => {
   const tagId: TagId = plainToInstance(TagId, {

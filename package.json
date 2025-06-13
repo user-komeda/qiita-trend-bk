@@ -12,7 +12,8 @@
     "start:dev": "nest start --watch",
     "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/main",
-    "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
+    "lint": "eslint ./",
+    "lint:fix": "eslint ./ --fix",
     "test": "vitest",
     "test:watch": "vitest --watch",
     "test:cov": "vitest --coverage",
@@ -33,6 +34,7 @@
     "rxjs": "^7.8.1"
   },
   "devDependencies": {
+    "@darraghor/eslint-plugin-nestjs-typed": "6.6.2",
     "@eslint/compat": "^1.1.1",
     "@eslint/eslintrc": "^3.1.0",
     "@eslint/js": "^9.9.1",
@@ -54,11 +56,11 @@
     "eslint-config-prettier": "^10.0.0",
     "eslint-import-resolver-typescript": "^4.0.0",
     "eslint-plugin-check-file": "^3.0.0",
-    "eslint-plugin-import": "^2.29.1",
+    "eslint-plugin-import": "2.31.0",
     "eslint-plugin-jsdoc": "^50.2.2",
     "eslint-plugin-prettier": "^5.0.0",
     "eslint-plugin-unused-imports": "^4.0.0",
-    "globals": "^16.0.0",
+    "globals": "16.2.0",
     "lefthook": "1.11.13",
     "prettier": "^3.0.0",
     "source-map-support": "^0.5.21",
@@ -67,7 +69,9 @@
     "ts-node": "^10.9.1",
     "tsconfig-paths": "^4.2.0",
     "typescript": "^5.1.3",
+    "typescript-eslint": "8.34.0",
     "unplugin-swc": "1.5.4",
+    "vite-tsconfig-paths": "5.1.4",
     "vitest": "3.2.3"
   },
   "packageManager": "yarn@4.9.2"

@@ -1,6 +1,6 @@
 import { Inject, Injectable } from '@nestjs/common'
 
-import { CommentRepository } from './comment.repository'
+import { CommentRepository } from '@/public/comment/domain/comment.repository'
 
 /**
  *CommentService

@@ -2,10 +2,9 @@ import { HttpModule } from '@nestjs/axios'
 import { Test, TestingModule } from '@nestjs/testing'
 import { beforeEach, describe, expect, test, vi } from 'vitest'
 
-import { CommentRepositoryImpl } from '../infrastructure/comment.repositoryImpl'
-
-import { CommentRepository } from './comment.repository'
-import { CommentService } from './comment.service'
+import { CommentRepositoryImpl } from '@/public/comment/infrastructure/comment.repositoryImpl'
+import { CommentRepository } from '@/public/comment/domain/comment.repository'
+import { CommentService } from '@/public/comment/domain/comment.service'
 
 describe('CommentService', () => {
   let service: CommentService

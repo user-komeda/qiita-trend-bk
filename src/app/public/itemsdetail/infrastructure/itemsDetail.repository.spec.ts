@@ -4,9 +4,8 @@ import { AxiosResponse } from 'axios'
 import { of } from 'rxjs/internal/observable/of'
 import { beforeEach, describe, expect, test, vi } from 'vitest'
 
-import { ItemsDetailRepository } from '../domain/itemsDetail.repository'
-
-import { ItemsDetailRepositoryImpl } from './itemsDetail.repositoryImpl'
+import { ItemsDetailRepository } from '@/public/itemsdetail/domain/itemsDetail.repository'
+import { ItemsDetailRepositoryImpl } from '@/public/itemsdetail/infrastructure/itemsDetail.repositoryImpl'
 /* eslint-disable  camelcase */
 
 const httpServiceMockData = {

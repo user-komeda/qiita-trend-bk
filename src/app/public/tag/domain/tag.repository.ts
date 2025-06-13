@@ -1,4 +1,4 @@
-import { TagData } from 'src/types/tagData'
+import { TagData } from '@/types/tagData'
 
 /**
  *TagRepository

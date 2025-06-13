@@ -1,6 +1,6 @@
 import { IsNotEmpty, Length, Matches } from 'class-validator'
 
-import { QIITA_ITEM_ID_LENGTH } from '../../../const'
+import { QIITA_ITEM_ID_LENGTH } from '@/const'
 
 /**
  *itemsIdValidationクラス

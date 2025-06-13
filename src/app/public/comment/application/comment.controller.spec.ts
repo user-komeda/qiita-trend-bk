@@ -3,11 +3,10 @@ import { ValidationPipe } from '@nestjs/common/pipes/validation.pipe'
 import { Test, TestingModule } from '@nestjs/testing'
 import { describe, test, expect, vi, beforeEach } from 'vitest'
 
-import { CommentRepository } from '../domain/comment.repository'
-import { CommentService } from '../domain/comment.service'
-import { CommentRepositoryImpl } from '../infrastructure/comment.repositoryImpl'
-
-import { CommentController } from './comment.controller'
+import { CommentRepository } from '@/public/comment/domain/comment.repository'
+import { CommentService } from '@/public/comment/domain/comment.service'
+import { CommentRepositoryImpl } from '@/public/comment/infrastructure/comment.repositoryImpl'
+import { CommentController } from '@/public/comment/application/comment.controller'
 const testCase1 = async (
   controller: CommentController,
   service: CommentService,

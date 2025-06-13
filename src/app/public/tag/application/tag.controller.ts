@@ -1,8 +1,7 @@
 import { Controller, Get } from '@nestjs/common'
 
-import { TagData } from 'src/types/tagData'
-
-import { TagService } from '../domain/tag.service'
+import { TagData } from '@/types/tagData'
+import { TagService } from '@/public/tag/domain/tag.service'
 
 /**
  *TagController

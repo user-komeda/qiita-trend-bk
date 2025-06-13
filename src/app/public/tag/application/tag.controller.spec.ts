@@ -2,13 +2,11 @@ import { HttpModule } from '@nestjs/axios'
 import { Test, TestingModule } from '@nestjs/testing'
 import { beforeEach, describe, expect, test, vi } from 'vitest'
 
-import { TagData } from 'src/types/tagData'
-
-import { TagRepository } from '../domain/tag.repository'
-import { TagService } from '../domain/tag.service'
-import { TagRepositoryImpl } from '../infrastructure/tag.repositoryImpl'
-
-import { TagController } from './tag.controller'
+import { TagData } from '@/types/tagData'
+import { TagRepository } from '@/public/tag/domain/tag.repository'
+import { TagService } from '@/public/tag/domain/tag.service'
+import { TagRepositoryImpl } from '@/public/tag/infrastructure/tag.repositoryImpl'
+import { TagController } from '@/public/tag/application/tag.controller'
 
 const testCase = async (
   controller: TagController,

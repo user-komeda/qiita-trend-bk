@@ -4,11 +4,9 @@ import { AxiosResponse } from 'axios'
 import { of } from 'rxjs/internal/observable/of'
 import { beforeEach, describe, expect, test, vi } from 'vitest'
 
-import { TagData } from 'src/types/tagData'
-
-import { TagRepository } from '../domain/tag.repository'
-
-import { TagRepositoryImpl } from './tag.repositoryImpl'
+import { TagData } from '@/types/tagData'
+import { TagRepository } from '@/public/tag/domain/tag.repository'
+import { TagRepositoryImpl } from '@/public/tag/infrastructure/tag.repositoryImpl'
 
 /* eslint-disable  camelcase */
 const mockData = [

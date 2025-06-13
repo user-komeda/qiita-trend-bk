@@ -2,12 +2,10 @@ import { HttpModule } from '@nestjs/axios'
 import { Test, TestingModule } from '@nestjs/testing'
 import { beforeEach, describe, expect, test, vi } from 'vitest'
 
-import { ItemsData } from 'src/types/itemsData'
-
-import { TagsItemRepositoryImpl } from '../infrastructure/tagsItem.repositoryImpl'
-
-import { TagsItemRepository } from './tagsItem.repository'
-import { TagsItemService } from './tagsItem.service'
+import { ItemsData } from '@/types/itemsData'
+import { TagsItemRepositoryImpl } from '@/public/tags-item/infrastructure/tagsItem.repositoryImpl'
+import { TagsItemRepository } from '@/public/tags-item/domain/tagsItem.repository'
+import { TagsItemService } from '@/public/tags-item/domain/tagsItem.service'
 
 const mockData: ItemsData[] = [
   {

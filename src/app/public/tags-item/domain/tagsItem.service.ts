@@ -1,8 +1,7 @@
 import { Inject, Injectable } from '@nestjs/common'
 
-import { ItemsData } from 'src/types/itemsData'
-
-import { TagsItemRepository } from './tagsItem.repository'
+import { ItemsData } from '@/types/itemsData'
+import { TagsItemRepository } from '@/public/tags-item/domain/tagsItem.repository'
 
 /**
  *TagsItemService

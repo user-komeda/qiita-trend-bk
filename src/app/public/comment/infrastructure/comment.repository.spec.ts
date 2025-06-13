@@ -4,8 +4,8 @@ import { AxiosResponse } from 'axios'
 import { of } from 'rxjs/internal/observable/of'
 import { beforeEach, describe, expect, test, vi } from 'vitest'
 
-import { CommentRepository } from '../domain/comment.repository'
-import { CommentRepositoryImpl } from '../infrastructure/comment.repositoryImpl'
+import { CommentRepository } from '@/public/comment/domain/comment.repository'
+import { CommentRepositoryImpl } from '@/public/comment/infrastructure/comment.repositoryImpl'
 
 const httpServiceMockData = [
   {

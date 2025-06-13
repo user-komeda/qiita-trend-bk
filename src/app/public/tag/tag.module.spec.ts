@@ -2,11 +2,11 @@ import { HttpService } from '@nestjs/axios'
 import { Test } from '@nestjs/testing'
 import { describe, expect, test } from 'vitest'
 
-import { TagController } from './application/tag.controller'
-import { TagRepository } from './domain/tag.repository'
-import { TagService } from './domain/tag.service'
-import { TagRepositoryImpl } from './infrastructure/tag.repositoryImpl'
-import { TagModule } from './tag.module'
+import { TagController } from '@/public/tag/application/tag.controller'
+import { TagRepository } from '@/public/tag/domain/tag.repository'
+import { TagService } from '@/public/tag/domain/tag.service'
+import { TagRepositoryImpl } from '@/public/tag/infrastructure/tag.repositoryImpl'
+import { TagModule } from '@/public/tag/tag.module'
 
 describe('tagModule', () => {
   test('should compile the module', async () => {
