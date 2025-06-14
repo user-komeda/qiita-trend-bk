@@ -1,32 +1,33 @@
 {
   "compilerOptions": {
-    "module": "commonjs",
     "declaration": true,
     "removeComments": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "allowSyntheticDefaultImports": true,
-    "target": "ES2021",
     "sourceMap": true,
-    "outDir": "./dist",
-    "baseUrl": "src",
     "incremental": true,
     "skipLibCheck": true,
-    "strictNullChecks": true,
     "noImplicitAny": false,
     "strictBindCallApply": false,
     "forceConsistentCasingInFileNames": false,
     "noFallthroughCasesInSwitch": false,
-    "moduleResolution": "node",
+    "strict": true,
+    "strictNullChecks": true,
+    "strictPropertyInitialization": false,
+    "outDir": "./dist",
+    "module": "nodenext",
+    "moduleResolution": "nodenext",
+    "target": "ESNext",
     "paths": {
-      "@/app/*": ["app/*"],
-      "@/admin/*": ["app/admin/*"],
-      "@/form/*": ["app/form/*"],
-      "@/public/*": ["app/public/*"],
-      "@/utils/*": ["app/utils/*"],
-      "@/schema/*": ["app/schema/*"],
-      "@/types/*": ["types/*"],
-      "@/const": ["const"]
+      "@/app/*": ["./src/app/*"],
+      "@/admin/*": ["./src/app/admin/*"],
+      "@/form/*": ["./src/app/form/*"],
+      "@/public/*": ["./src/app/public/*"],
+      "@/utils/*": ["./src/app/utils/*"],
+      "@/schema/*": ["./src/app/schema/*"],
+      "@/types/*": ["./src/types/*"],
+      "@/const": ["./src/const"]
     }
   }
 }
