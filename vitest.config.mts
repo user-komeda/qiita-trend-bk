@@ -16,5 +16,10 @@ export default defineConfig({
       },
     },
   },
-  plugins: [tsconfigPaths(), swc.vite()],
+  plugins: [
+    tsconfigPaths(),
+    swc.vite({
+      module: { type: 'nodenext' },
+    }),
+  ],
 })
