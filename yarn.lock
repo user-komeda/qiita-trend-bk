@@ -182,14 +182,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@darraghor/eslint-plugin-nestjs-typed@npm:6.6.7":
-  version: 6.6.7
-  resolution: "@darraghor/eslint-plugin-nestjs-typed@npm:6.6.7"
+"@darraghor/eslint-plugin-nestjs-typed@npm:6.7.0":
+  version: 6.7.0
+  resolution: "@darraghor/eslint-plugin-nestjs-typed@npm:6.7.0"
   dependencies:
     "@typescript-eslint/scope-manager": "npm:^8.34.1"
     "@typescript-eslint/type-utils": "npm:^8.34.1"
     "@typescript-eslint/utils": "npm:^8.34.1"
-    eslint-module-utils: "npm:2.12.0"
+    eslint-module-utils: "npm:2.12.1"
     glob: "npm:11.0.3"
     reflect-metadata: "npm:0.2.2"
     ts-api-utils: "npm:2.1.0"
@@ -197,7 +197,7 @@ __metadata:
     "@typescript-eslint/parser": ^7.0.0 || ^8.0.0
     class-validator: "*"
     eslint: ">=9.18.0"
-  checksum: 10c0/918696ae8f9f4eec9bb2a348d91d93b37e9c838d268cc40c5e810da85d87064203cd6af1ca997d65e0107f40dfb36b09d4f86e44538d46dcb2db3cae08af153e
+  checksum: 10c0/2809038ac752a14e3a8a55c4e1990bc8fb388beffb08a40dda724ca164ca585a3a98454d526271f9e9bcc5bd9235a55cc665e8f1ba749a0c0ff4e83d6ce26e41
   languageName: node
   linkType: hard
 
@@ -4937,19 +4937,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-module-utils@npm:2.12.0":
-  version: 2.12.0
-  resolution: "eslint-module-utils@npm:2.12.0"
-  dependencies:
-    debug: "npm:^3.2.7"
-  peerDependenciesMeta:
-    eslint:
-      optional: true
-  checksum: 10c0/4d8b46dcd525d71276f9be9ffac1d2be61c9d54cc53c992e6333cf957840dee09381842b1acbbb15fc6b255ebab99cd481c5007ab438e5455a14abe1a0468558
-  languageName: node
-  linkType: hard
-
-"eslint-module-utils@npm:^2.12.1":
+"eslint-module-utils@npm:2.12.1, eslint-module-utils@npm:^2.12.1":
   version: 2.12.1
   resolution: "eslint-module-utils@npm:2.12.1"
   dependencies:
@@ -8141,7 +8129,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "qiita-trend@workspace:."
   dependencies:
-    "@darraghor/eslint-plugin-nestjs-typed": "npm:6.6.7"
+    "@darraghor/eslint-plugin-nestjs-typed": "npm:6.7.0"
     "@eslint/compat": "npm:^1.1.1"
     "@eslint/eslintrc": "npm:^3.1.0"
     "@eslint/js": "npm:^9.9.1"
