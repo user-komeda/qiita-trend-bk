@@ -1,4 +1,4 @@
-FROM ghcr.io/user-komeda/docker_node:sha-0af7530@sha256:ee5ab347306dbadac11e1e1956161271344a424da18b8c7e2d3c85de91c61a14 AS builder
+FROM ghcr.io/user-komeda/docker_node:sha-0af7530@sha256:ede1e29ccff48c7fe157c876e1db7b59471c93bd572ce20fd98a9ab48efb04c8 AS builder
 
 
 WORKDIR /app/
@@ -16,7 +16,7 @@ RUN yarn build
 
 
 
-FROM ghcr.io/user-komeda/docker_node:sha-0af7530@sha256:ee5ab347306dbadac11e1e1956161271344a424da18b8c7e2d3c85de91c61a14
+FROM ghcr.io/user-komeda/docker_node:sha-0af7530@sha256:ede1e29ccff48c7fe157c876e1db7b59471c93bd572ce20fd98a9ab48efb04c8
 
 WORKDIR /app/
 
