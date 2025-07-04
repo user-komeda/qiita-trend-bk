@@ -12,7 +12,7 @@ export const schema = v.array(
     coediting: v.boolean(),
     comments_count: v.number(),
     created_at: v.string(),
-    group: groupSchema,
+    group: v.nullable(groupSchema),
     id: v.string(),
     likes_count: v.number(),
     private: v.boolean(),
