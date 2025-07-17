@@ -182,9 +182,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@darraghor/eslint-plugin-nestjs-typed@npm:6.7.0":
-  version: 6.7.0
-  resolution: "@darraghor/eslint-plugin-nestjs-typed@npm:6.7.0"
+"@darraghor/eslint-plugin-nestjs-typed@npm:6.7.1":
+  version: 6.7.1
+  resolution: "@darraghor/eslint-plugin-nestjs-typed@npm:6.7.1"
   dependencies:
     "@typescript-eslint/scope-manager": "npm:^8.34.1"
     "@typescript-eslint/type-utils": "npm:^8.34.1"
@@ -197,7 +197,7 @@ __metadata:
     "@typescript-eslint/parser": ^7.0.0 || ^8.0.0
     class-validator: "*"
     eslint: ">=9.18.0"
-  checksum: 10c0/2809038ac752a14e3a8a55c4e1990bc8fb388beffb08a40dda724ca164ca585a3a98454d526271f9e9bcc5bd9235a55cc665e8f1ba749a0c0ff4e83d6ce26e41
+  checksum: 10c0/14a4c9b13e42897b1394a0d03307ba0813158c420d0d6bb62634bfe4ac3530e6e3e503996d0bdb19148907478413f6ae19da0dfea04e91b1f567c08b0ee37082
   languageName: node
   linkType: hard
 
@@ -8139,7 +8139,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "qiita-trend@workspace:."
   dependencies:
-    "@darraghor/eslint-plugin-nestjs-typed": "npm:6.7.0"
+    "@darraghor/eslint-plugin-nestjs-typed": "npm:6.7.1"
     "@eslint/compat": "npm:^1.1.1"
     "@eslint/eslintrc": "npm:^3.1.0"
     "@eslint/js": "npm:^9.9.1"
